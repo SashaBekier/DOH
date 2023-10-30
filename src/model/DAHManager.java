@@ -31,8 +31,7 @@ import javafx.stage.Stage;
  */
 public class DAHManager {
 	private ArrayList<Post> posts = new ArrayList<>();
-	private ArrayList<User> users = new ArrayList<>();
-
+	private User activeUser;
 	/**
 	 * constructor method
 	 */

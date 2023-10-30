@@ -56,10 +56,11 @@ public class LogInView {
 		bannerText.setFont(new Font(24));
 		bannerText.setWrappingWidth(400);
 		bannerText.setTextAlignment(TextAlignment.CENTER);
-				
+		
 		banner.getChildren().add(bannerText);
 		topPane.getChildren().add(banner);
 	}
+
 	
 	
 	
