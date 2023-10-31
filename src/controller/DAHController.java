@@ -11,8 +11,7 @@ public class DAHController {
 	private HashMap<String, Controller> controllers = new HashMap<String, Controller>();
 	private DAHStage window;
 	
-	public DAHController(DAHManager manager,Stage primaryStage) {
-		model = manager;
+	public DAHController(Stage primaryStage) {
 		controllers.put("LogIn", new LogInController(this));
 		window = new DAHStage(primaryStage);
 		updateStage("LogIn");

@@ -32,12 +32,22 @@ import javafx.stage.Stage;
 public class DAHManager {
 	private ArrayList<Post> posts = new ArrayList<>();
 	private User activeUser;
+	private static DAHManager dahManager;
+
 	/**
 	 * constructor method
 	 */
-	public DAHManager(Stage primaryStage) {
-		new DAHController(this,primaryStage);
+
+	
+	private DAHManager() {}
+	
+	public static DAHManager getManager() {
+		if(dahManager == null) {
+			dahManager = new DAHManager();
+		}
+		return dahManager;
 	}
+	
 
 	/**
 	 * takes validated input from the SmaUI, creates a new Post from the input
