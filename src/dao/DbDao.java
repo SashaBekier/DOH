@@ -1,42 +1,53 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Post;
 import model.User;
 
-public class DbDao implements Dao {
+public class DbDao {
+	
+	public void testConnection() {
+		try {
+			getConnection();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+	}
 
-	@Override
 	public User validateUser(String username, String password)
 			throws InvalidLoginException, DAOUnavailableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public ArrayList<Post> getPosts() throws DAOUnavailableException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void addUser(User user) throws DAOUnavailableException {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void updateUser(User user) throws DAOUnavailableException {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void savePosts(ArrayList<Post> posts)
 			throws DAOUnavailableException {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private Connection getConnection() throws SQLException{
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:dah");
+		return connection;
 	}
 
 }

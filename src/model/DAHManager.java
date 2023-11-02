@@ -11,6 +11,8 @@
 package model;
 
 import java.io.File;
+import dao.DbDao;
+
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -18,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-import controller.DAHController;
-import javafx.stage.Stage;
+
 
 /**
  * The SmaManager class is responsible for collecting, maintaining and analysing
@@ -39,7 +40,10 @@ public class DAHManager {
 	 */
 
 	
-	private DAHManager() {}
+	private DAHManager() {
+		DbDao data = new DbDao();
+		data.testConnection();
+	}
 	
 	public static DAHManager getManager() {
 		if(dahManager == null) {

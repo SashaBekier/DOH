@@ -12,9 +12,12 @@ public class DAHController {
 	private DAHStage window;
 	
 	public DAHController(Stage primaryStage) {
+		model = DAHManager.getManager();
+		
 		controllers.put("LogIn", new LogInController(this));
 		window = new DAHStage(primaryStage);
 		updateStage("LogIn");
+		
 	}
 	
 	public void updateStage(String viewController) {
