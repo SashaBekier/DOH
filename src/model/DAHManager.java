@@ -11,7 +11,10 @@
 package model;
 
 import java.io.File;
-import dao.DbDao;
+
+import dao.DAOUnavailableException;
+import dao.Dao;
+import dao.InvalidLoginException;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
@@ -34,15 +37,21 @@ public class DAHManager {
 	private ArrayList<Post> posts = new ArrayList<>();
 	private User activeUser;
 	private static DAHManager dahManager;
-
+	private Dao data;
 	/**
 	 * constructor method
+	 * @throws DAOUnavailableException 
 	 */
 
 	
-	private DAHManager() {
-		DbDao data = new DbDao();
-		data.testConnection();
+	private DAHManager()  {
+		try {
+			data = new Dao();
+		} catch (DAOUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static DAHManager getManager() {
@@ -192,5 +201,10 @@ public class DAHManager {
 	 */
 	public void removePost(int id) throws InvalidPostIdException {
 		posts.remove(this.getPostById(id));
+	}
+
+	public void validateUser(String username, String password) throws InvalidLoginException {
+		activeUser = data.validateUser(username, password);
+		if(activeUser == null) throw new InvalidLoginException();
 	}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.HashMap;
 
+import dao.DAOUnavailableException;
 import javafx.stage.Stage;
 import model.DAHManager;
 import view.DAHStage;
@@ -12,9 +13,12 @@ public class DAHController {
 	private DAHStage window;
 	
 	public DAHController(Stage primaryStage) {
+		
 		model = DAHManager.getManager();
 		
+		
 		controllers.put("LogIn", new LogInController(this));
+		controllers.put("Home", new HomeController(this));
 		window = new DAHStage(primaryStage);
 		updateStage("LogIn");
 		

@@ -1,10 +1,17 @@
 package view;
 
+import controller.Controller;
 import controller.LogInController;
+import dao.InvalidLoginException;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,30 +20,48 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class LogInView {
-	private Pane topPane;
-	private Pane middlePane;
+public class LogInView extends View{
 	private LogInController control;
 	
 	public LogInView(LogInController control) {
 		this.control = control;
 		drawTop();
+		drawMiddle();
 		
-		middlePane = new Pane();
 	}
 	
-	public Pane[] getPanes() {
-		Pane[] panes = {getTopPane(), getMiddlePane()};
-		return panes;
-	}
 	
-	private Pane getTopPane() {
-		return topPane;
-	}
 	
-	private Pane getMiddlePane() {
+
+	private void drawMiddle() {
+		middlePane = new VBox(4);
 		middlePane.getChildren().add(new Label("Log In"));
-		return middlePane;
+		GridPane formFields = new GridPane(2,2);
+		formFields.add(new Label("Username: "),0,0);
+		TextField usernameSubmitted = new TextField();
+		formFields.add(usernameSubmitted, 1, 0);
+		formFields.add(new Label("Password: "),0,1);
+		TextField passwordSubmitted = new PasswordField();
+		formFields.add(passwordSubmitted,1,1);
+		middlePane.getChildren().add(formFields);
+		HBox formSubmit = new HBox(3);
+		formSubmit.getChildren().add(new Label("Register"));
+		formSubmit.getChildren().add(new Label("Forgot Password"));
+		Button formSubmitted = new Button("Log In");
+		formSubmit.getChildren().add(formSubmitted);
+		middlePane.getChildren().add(formSubmit);
+		Label warning = new Label();
+		middlePane.getChildren().add(warning);
+		
+		formSubmitted.setOnAction(e -> 
+			{
+				try {
+					control.submitLogin(usernameSubmitted.getText(),
+							passwordSubmitted.getText());
+				} catch (InvalidLoginException e1) {
+					warning.setText("Invalid Username or Password");
+				}
+			});
 	}
 	
 	private void drawTop() {
