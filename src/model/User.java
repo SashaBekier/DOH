@@ -50,5 +50,13 @@ public class User {
 		return attribs;		
 	}
 	
+	public boolean hasAdmin() {
+		return isAdmin;
+	}
+	
+	public boolean hasVIP() {
+		return isVIP;
+	}
+	
 	
 }

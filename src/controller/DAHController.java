@@ -17,7 +17,6 @@ public class DAHController {
 	public DAHController(Stage primaryStage) {
 		
 		model = DAHManager.getManager();
-		dash = new DashboardController(this);
 		
 		controllers.put("LogIn", new LogInController(this));
 		controllers.put("Register", new RegisterController(this));
@@ -36,9 +35,14 @@ public class DAHController {
 	}
 	
 	public void logInComplete() {
+		dash = new DashboardController(this);
+		
 		controllers.put("Home", new HomeController(this));
 		controllers.put("Profile", new ProfileController(this));
 		controllers.put("GetVip", new GetVipController(this));
+		controllers.put("Posts", new PostsController(this));
+		controllers.put("Add", new AddController(this));
+		controllers.put("ImportCsv", new ImportCsvController(this));
 		
 		
 	}
