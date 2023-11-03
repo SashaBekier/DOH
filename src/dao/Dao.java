@@ -98,7 +98,23 @@ public class Dao {
 	}
 
 	public void addUser(User user)  {
-		// TODO Auto-generated method stub
+		Connection db = getConnection();
+		try{
+			Statement statement = db.createStatement();
+			String[] userAttribs = user.getAttributes();
+			String query = "INSERT INTO users VALUES "
+					+ "('" + userAttribs[0] + "', "
+					+ "'" + userAttribs[1] + "', "
+					+ "'" + userAttribs[2] + "', "
+					+ "'" + userAttribs[3] + "', "
+					+ "'" + userAttribs[4] + "', "
+					+ "'" + userAttribs[5] + "')";
+			statement.execute(query);	
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 
 	}
 

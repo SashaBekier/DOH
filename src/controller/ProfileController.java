@@ -3,23 +3,23 @@ package controller;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
-import view.HomeView;
+import view.ProfileView;
 import view.LogInView;
 
-public class HomeController implements Controller {
-	private HomeView home;
+public class ProfileController implements Controller {
+	private ProfileView profile;
 	private DAHController control;
 	private DAHManager model;
 	
-	public HomeController(DAHController cont) {
+	public ProfileController(DAHController cont) {
 		control = cont;
 		model = DAHManager.getManager();
-		home = new HomeView(this);
+		profile = new ProfileView(this);
 		
 	}
 	@Override
 	public Pane[] getPanes() {
-		return home.getPanes();
+		return profile.getPanes();
 	}
 	
 	public Pane getDashboard() {

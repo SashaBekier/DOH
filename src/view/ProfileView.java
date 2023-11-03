@@ -1,16 +1,16 @@
 package view;
 
 import controller.Controller;
-import controller.HomeController;
+import controller.ProfileController;
 import controller.LogInController;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-public class HomeView extends View{
-	private HomeController control;
+public class ProfileView extends View{
+	private ProfileController control;
 
-	public HomeView(HomeController homeController) {
-		control = homeController;
+	public ProfileView(ProfileController ProfileController) {
+		control = ProfileController;
 		drawTop();
 		drawMiddle();
 	}
@@ -18,7 +18,7 @@ public class HomeView extends View{
 	private void drawMiddle() {
 		middlePane = new Pane();
 		String userDisplayName = control.getActiveUserDisplayName();
-		Label greeting = new Label("Welcome to DAH " + userDisplayName);
+		Label greeting = new Label("Profile Of " + userDisplayName);
 		middlePane.getChildren().add(greeting);
 		
 	}

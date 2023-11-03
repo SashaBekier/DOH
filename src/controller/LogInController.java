@@ -22,6 +22,11 @@ public class LogInController implements Controller {
 
 	public void submitLogin(String username, String password) throws InvalidLoginException {
 			model.validateUser(username, password);
+			control.logInComplete();
 			control.updateStage("Home");
+	}
+
+	public void callRegisterView() {
+		control.updateStage("Register");
 	}
 }

@@ -45,7 +45,8 @@ public class LogInView extends View{
 		formFields.add(passwordSubmitted,1,1);
 		middlePane.getChildren().add(formFields);
 		HBox formSubmit = new HBox(3);
-		formSubmit.getChildren().add(new Label("Register"));
+		Label register = new Label("Register");
+		formSubmit.getChildren().add(register);
 		formSubmit.getChildren().add(new Label("Forgot Password"));
 		Button formSubmitted = new Button("Log In");
 		formSubmit.getChildren().add(formSubmitted);
@@ -62,6 +63,10 @@ public class LogInView extends View{
 					warning.setText("Invalid Username or Password");
 				}
 			});
+		
+		register.setOnMouseClicked( e -> {
+			control.callRegisterView();}
+			);
 	}
 	
 	private void drawTop() {

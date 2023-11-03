@@ -31,5 +31,24 @@ public class User {
 		isVIP = false;
 	}
 	
+	public String[] getAttributes() {
+		String[] attribs = new String[6];
+		attribs[0] = username;
+		attribs[1] = password;
+		attribs[2] = firstName;
+		attribs[3] = lastName;
+		if(isAdmin){
+			attribs[4] = "1";
+		} else {
+			attribs[4] = "0";
+		}
+		if(isVIP) {
+			attribs[5] = "1";
+		} else {
+			attribs[5] = "0";
+		}
+		return attribs;		
+	}
+	
 	
 }

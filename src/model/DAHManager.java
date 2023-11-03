@@ -14,8 +14,7 @@ import java.io.File;
 
 import dao.DAOUnavailableException;
 import dao.Dao;
-import dao.InvalidLoginException;
-
+import dao.InvalidLoginException; 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -206,5 +205,18 @@ public class DAHManager {
 	public void validateUser(String username, String password) throws InvalidLoginException {
 		activeUser = data.validateUser(username, password);
 		if(activeUser == null) throw new InvalidLoginException();
+		
+	}
+
+	public void registerUser(String username, String password, String firstName,
+			String lastName) {
+		User newUser = new User(username, password, firstName, lastName);
+		activeUser = newUser;
+		data.addUser(newUser);
+				
+	}
+	
+	public User getActiveUser() {
+		return activeUser;
 	}
 }

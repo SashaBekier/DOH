@@ -3,23 +3,23 @@ package controller;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
-import view.HomeView;
+import view.GetVipView;
 import view.LogInView;
 
-public class HomeController implements Controller {
-	private HomeView home;
+public class GetVipController implements Controller {
+	private GetVipView getVip;
 	private DAHController control;
 	private DAHManager model;
 	
-	public HomeController(DAHController cont) {
+	public GetVipController(DAHController cont) {
 		control = cont;
 		model = DAHManager.getManager();
-		home = new HomeView(this);
+		getVip = new GetVipView(this);
 		
 	}
 	@Override
 	public Pane[] getPanes() {
-		return home.getPanes();
+		return getVip.getPanes();
 	}
 	
 	public Pane getDashboard() {
