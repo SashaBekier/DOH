@@ -13,26 +13,82 @@ import model.User;
 public class Dao {
 	
 	public Dao() throws DAOUnavailableException {
+		confirmDBStructure();
 		confirmSuperAdmin();
 		
 	}
 
-	public User validateUser(String username, String password){
-		User validatedUser = null;
-		Connection connection = getConnection();
+	private void confirmDBStructure() {
+		Connection db = getConnection();
 		Statement statement;
 		try {
-			statement = connection.createStatement();
+			statement = db.createStatement();
+		
+			String query = "CREATE TABLE IF NOT EXISTS users ("
+					+ "    username  TEXT (20)   PRIMARY KEY"
+					+ "                          UNIQUE"
+					+ "                          NOT NULL,"
+					+ "    password  TEXT (20)   NOT NULL,"
+					+ "    firstName TEXT (30),"
+					+ "    lastName  TEXT (30)   NOT NULL,"
+					+ "    isAdmin   INTEGER (1) NOT NULL"
+					+ "                          DEFAULT (0),"
+					+ "    isVIP     INTEGER (1) NOT NULL"
+					+ "                          DEFAULT (0) "
+					+ ");";
+			statement.execute(query);
+			
+			query = "CREATE TABLE IF NOT EXISTS userAlias ("
+					+ "    username TEXT (20) REFERENCES users (username) "
+					+ "                       NOT NULL,"
+					+ "    alias    TEXT (20) NOT NULL"
+					+ "                       UNIQUE,"
+					+ "    PRIMARY KEY ("
+					+ "        username,"
+					+ "        alias"
+					+ "    )"
+					+ ");";
+			statement.execute(query);
+			query = "CREATE TABLE IF NOT EXISTS posts ("
+					+ "    postID       INTEGER     PRIMARY KEY"
+					+ "                             UNIQUE"
+					+ "                             NOT NULL,"
+					+ "    content      TEXT        NOT NULL,"
+					+ "    authorID     TEXT (20)   NOT NULL,"
+					+ "    likes        INTEGER (6) NOT NULL"
+					+ "                             DEFAULT (0),"
+					+ "    shares       INTEGER (6) NOT NULL"
+					+ "                             DEFAULT (0),"
+					+ "    parentID     INTEGER     NOT NULL"
+					+ "                             DEFAULT (0),"
+					+ "    postDateTime TEXT (16)   NOT NULL"
+					+ ");";
+			statement.execute(query);
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public User validateUser(String username, String password){
+		User validatedUser = null;
+		Connection db = getConnection();
+		Statement statement;
+		try {
+			statement = db.createStatement();
 		
 			ResultSet result = statement.executeQuery("SELECT * FROM users WHERE username = '"+username+"' AND " +
 					"password = '"+password+"'");
 			if(result.next()) {
 				validatedUser = readUser(result);
 			}
+			db.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return validatedUser;
 	}
 
@@ -68,15 +124,20 @@ public class Dao {
 	}
 	
 	private void confirmSuperAdmin()  {
-		Connection connection = getConnection();
+		Connection db = getConnection();
 		Statement statement;
 		try {
-			statement = connection.createStatement();
-			if(statement.execute("SELECT * FROM users WHERE username = 'superadmin'")
-					!= true){
+			statement = db.createStatement();
+			int rowCount = 0;
+			ResultSet res = statement.executeQuery("SELECT * FROM users WHERE username = 'superadmin'");
+			while(res.next()) {
+				rowCount++;
+			}
+			if(rowCount < 1){
 				statement.executeUpdate("INSERT INTO users "
 						+ "VALUES ('superadmin','admin','Super','Admin',1,1)");
 			}
+			db.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
