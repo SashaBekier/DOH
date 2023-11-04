@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.FileNotFoundException;
+
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
@@ -30,6 +32,14 @@ public class ImportCsvController implements Controller {
 		User user = model.getActiveUser();
 		String[] attribs = user.getAttributes();
 		return attribs[2] + " " + attribs[3];
+	}
+	public void importCsv(String file) {
+		try {
+			model.importPostsFrom(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 }

@@ -6,6 +6,7 @@ import controller.HomeController;
 import controller.ImportCsvController;
 import controller.LogInController;
 import controller.PostsController;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
@@ -20,8 +21,12 @@ public class ImportCsvView extends View{
 
 	private void drawMiddle() {
 		middlePane = new Pane();
-		Label greeting = new Label("Import CSV");
-		middlePane.getChildren().add(greeting);
+		Button importB = new Button("Import Default CSV");
+		middlePane.getChildren().add(importB);
+		
+		importB.setOnAction(e->{
+			control.importCsv("posts.csv");
+		});
 		
 	}
 

@@ -177,7 +177,9 @@ public class DAHManager {
 			line = file.nextLine();
 			if (!line.equals(Post.CSV_HEADER)) {
 				try {
-					posts.add(Post.fromCSVRepr(line));
+					Post newPost = Post.fromCSVRepr(line);
+					posts.add(newPost);
+					data.addNewPost(newPost);
 					result[0]++;
 				} catch (NumberFormatException e) {
 					result[1]++;
