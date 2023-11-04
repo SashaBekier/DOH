@@ -1,11 +1,13 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
-import view.PostsView;
 import view.AddView;
-import view.LogInView;
+
+
 
 public class AddController implements Controller {
 	private AddView add;
@@ -30,6 +32,17 @@ public class AddController implements Controller {
 		User user = model.getActiveUser();
 		String[] attribs = user.getAttributes();
 		return attribs[2] + " " + attribs[3];
+	}
+	public ArrayList<String> getAuthorIds() {
+		return model.getActiveUser().getAuthorIDs();
+	}
+	public boolean userHasAdmin() {
+		return model.getActiveUser().hasAdmin();
+	}
+	public void submitPost( String postId, String content,String authorId,
+			String likes, String shares, String dateTime, String parent) {
+		model.submitPost(postId,content,authorId,likes,shares,dateTime,parent);
+		
 	}
 
 }

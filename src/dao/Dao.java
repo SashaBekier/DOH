@@ -50,16 +50,16 @@ public class Dao {
 					+ ");";
 			statement.execute(query);
 			query = "CREATE TABLE IF NOT EXISTS posts ("
-					+ "    postID       INTEGER     PRIMARY KEY"
+					+ "    postId       INTEGER     PRIMARY KEY"
 					+ "                             UNIQUE"
 					+ "                             NOT NULL,"
 					+ "    content      TEXT        NOT NULL,"
-					+ "    authorID     TEXT (20)   NOT NULL,"
+					+ "    authorId     TEXT (20)   NOT NULL,"
 					+ "    likes        INTEGER (6) NOT NULL"
 					+ "                             DEFAULT (0),"
 					+ "    shares       INTEGER (6) NOT NULL"
 					+ "                             DEFAULT (0),"
-					+ "    parentID     INTEGER     NOT NULL"
+					+ "    parentId     INTEGER     NOT NULL"
 					+ "                             DEFAULT (0),"
 					+ "    postDateTime TEXT (16)   NOT NULL"
 					+ ");";
@@ -82,6 +82,10 @@ public class Dao {
 					"password = '"+password+"'");
 			if(result.next()) {
 				validatedUser = readUser(result);
+				ResultSet alias = statement.executeQuery("SELECT alias FROM userAlias WHERE username = '\"+username+\"'");
+				if(alias.next()) {
+					validatedUser.addAuthorAlias(alias.getString(0));
+				}
 			}
 			db.close();
 		} catch (SQLException e) {
@@ -172,5 +176,32 @@ public class Dao {
 			user.promoteVIP();
 		}
 		return user;
+	}
+
+	public void addNewPost(Post newPost) {
+		String testQuery = "SELECT * FROM posts WHERE postId = '" +newPost.getId() + "'";
+		Connection db = getConnection();
+		
+		try {
+			Statement statement = db.createStatement();
+			ResultSet test = statement.executeQuery(testQuery);
+			int rowCount = 0;
+			while(test.next()) rowCount++;
+			if(rowCount < 1) {
+				String insert = "INSERT INTO posts VALUES ('" + newPost.getId() + "', "
+						+ "'" + newPost.getContent() + "', "
+						+ "'" + newPost.getAuthorId() + "', "
+						+ "'" + newPost.getLikes() + "', "
+						+ "'" + newPost.getShares() + "', "
+						+ "'" + newPost.getParentId() + "', "
+						+ "'" + newPost.getPostedAt() + "')";
+				statement.executeUpdate(insert);		
+			}
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

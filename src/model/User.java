@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 
 public class User {
 	private String username;
@@ -8,13 +9,19 @@ public class User {
 	private String lastName;
 	private boolean isAdmin = false;
 	private boolean isVIP = false;
+	private ArrayList<String> authorIds = new ArrayList<String>();
 	
 	public User(String username, String password, String firstName, 
 			String lastName) {
 		this.username = username;
+		authorIds.add(username);
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+	
+	public void addAuthorAlias(String alias) {
+		authorIds.add(alias);
 	}
 	
 	public void promoteAdmin() {
@@ -56,6 +63,10 @@ public class User {
 	
 	public boolean hasVIP() {
 		return isVIP;
+	}
+	
+	public ArrayList<String> getAuthorIDs() {
+		return authorIds;
 	}
 	
 	

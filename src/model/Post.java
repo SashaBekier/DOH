@@ -163,7 +163,7 @@ public class Post {
 	 * 
 	 * @return this posts id as an integer.
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -233,5 +233,17 @@ public class Post {
 		answer = LocalDateTime.parse(dateText, formatter);
 
 		return answer;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public String getAuthorId() {
+		return author;
+	}
+
+	public int getParentId() {
+		return parentId;
 	}
 }

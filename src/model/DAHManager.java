@@ -131,7 +131,7 @@ public class DAHManager {
 	 * @return sorted ArrayList of Posts
 	 */
 	public ArrayList<Post> getPosts() {
-		posts.sort(Comparator.comparing(Post::getID));
+		posts.sort(Comparator.comparing(Post::getId));
 		return posts;
 	}
 
@@ -218,5 +218,13 @@ public class DAHManager {
 	
 	public User getActiveUser() {
 		return activeUser;
+	}
+
+	public void submitPost(String postId, String content, String authorId,
+			String likes, String shares, String parent, String dateTime) {
+		Post newPost = new Post(postId,content,authorId,likes,shares,parent,dateTime);
+		posts.add(newPost);
+		data.addNewPost(newPost);
+		
 	}
 }
