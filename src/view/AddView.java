@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.Validators;
 
 public class AddView extends View{
 	private AddController control;
@@ -30,6 +31,9 @@ public class AddView extends View{
 		middlePane.getChildren().add(heading);
 		
 		GridPane form = new GridPane(2,8);
+		
+		ValidatedButton submit = new ValidatedButton("Add Post");
+		
 		ComboBox authorId = new ComboBox();
 		ArrayList<String> alias = control.getAuthorIds();
 		for(String author: alias) {
@@ -42,7 +46,8 @@ public class AddView extends View{
 		form.add(new Label("Author ID:"),0,0);
 		form.add(authorId, 1, 0);
 		TextField postId = new TextField();
-		TextField content = new TextField();
+		ValidatedTextField content = new ValidatedTextField(s -> Validators.hasContent(s));
+		content.registerButton(submit);
 		TextField likes = new TextField();
 		TextField shares = new TextField();
 		TextField replyTo = new TextField();
@@ -59,7 +64,7 @@ public class AddView extends View{
 		form.add(replyTo, 1, 5);
 		form.add(new Label("Post Date & time:"),0,6);
 		form.add(dateTime, 1, 6);
-		Button submit = new Button("Add Post");
+		
 		form.add(submit, 1, 7);
 		
 		submit.setOnAction(e -> {
@@ -78,6 +83,8 @@ public class AddView extends View{
 		topPane = control.getDashboard();
 		
 	}
-
 	
 }
+
+
+
