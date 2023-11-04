@@ -227,4 +227,8 @@ public class DAHManager {
 		data.addNewPost(newPost);
 		
 	}
+
+	public void logOut() {
+		activeUser = null;
+	}
 }

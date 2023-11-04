@@ -32,7 +32,8 @@ public class DashboardController implements Controller {
 		control.updateStage("ImportCsv");
 	}
 	public void logOut() {
-		
+		model.logOut();
+		control.updateStage("LogIn");
 	}
 	public void loadGetVip() {
 		control.updateStage("GetVip");
