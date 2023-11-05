@@ -41,18 +41,20 @@ public class PostsView extends View{
 		
 		CheckBox showReplies = new CheckBox();
 		
-		DateTimePicker fromDateTimePicker = new DateTimePicker();
+		DateTimePicker fromDateTimePicker = new DateTimePicker(0, 0);
 		HBox fromDate = fromDateTimePicker.getControl();
 		
-		Label test = new Label("None Set");
+		DateTimePicker toDateTimePicker = new DateTimePicker(23, 59);
+		HBox toDate = toDateTimePicker.getControl();
 		
-	
+		
 		
 		filters.getChildren().addAll(
 				new Label("Filter by - Post ID:"), postIdFilter,
 				new Label("Author ID:"), authorIdFilter,
 				showReplies, new Label("Include Replies"),
-				fromDate, test);
+				new Label("From:"),fromDate,
+				new Label("to:"), toDate);
 		
 		
 		

@@ -46,6 +46,6 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	}
 	
 	public void setValue(String text) {
-		this.setValue(text);
+		super.setText(text);
 	}
 }
