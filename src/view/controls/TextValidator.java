@@ -1,4 +1,4 @@
-package view;
+package view.controls;
 
 @FunctionalInterface
 public interface TextValidator {

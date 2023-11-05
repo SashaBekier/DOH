@@ -28,7 +28,7 @@ public class DAHStage {
 			setBottomPane(Footer.getFooter());
 			
 			
-			Scene scene = new Scene(container,400,400);
+			Scene scene = new Scene(container,1200,400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -15,6 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Validators;
+import view.controls.ValidatedButton;
+import view.controls.ValidatedTextField;
 
 public class AddView extends View{
 	private AddController control;

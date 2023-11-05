@@ -1,4 +1,4 @@
-package view;
+package view.controls;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;

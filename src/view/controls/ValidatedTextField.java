@@ -1,4 +1,4 @@
-package view;
+package view.controls;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,6 +14,11 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	public void registerButton(ValidatedButton button) {
 		registeredButton = button;
 		button.addTarget();
+	}
+	
+	public ValidatedTextField(TextValidator validator, ValidatedButton button) {
+		this(validator);
+		this.registerButton(button);
 	}
 	
 	public ValidatedTextField(TextValidator validator) {
@@ -38,5 +43,9 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	
 	public boolean isValid() {
 		return valid;
+	}
+	
+	public void setValue(String text) {
+		this.setValue(text);
 	}
 }
