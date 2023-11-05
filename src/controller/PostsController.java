@@ -34,5 +34,9 @@ public class PostsController implements Controller {
 	public List<Post> getPosts() {
 		return model.getPosts();
 	}
+	public void callExportCsvView(List<Post> exportPosts) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -3,19 +3,13 @@ package view;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import controller.Controller;
-import controller.HomeController;
-import controller.LogInController;
 import controller.PostsController;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Validators;
 import view.controls.DateTimePicker;
@@ -28,10 +22,12 @@ public class PostsView extends View{
 	private GridPane postPane;
 	private PostFilter filter = new PostFilter();
 	private PostSorter sorter = new PostSorter();
+	private List<Post> posts;
 	
 
 	public PostsView(PostsController postController) {
 		control = postController;
+		//posts = control.getPosts();
 		drawTop();
 		drawMiddle();
 	}
@@ -94,6 +90,11 @@ public class PostsView extends View{
 		
 		middlePane.getChildren().add(filters);
 		
+		Button export = new Button("Export Posts to CSV");
+		export.setOnAction(e->{
+			control.callExportCsvView(posts);
+		});
+		
 		
 		
 		
@@ -106,7 +107,7 @@ public class PostsView extends View{
 
 	private void updatePostPane() {
 		initPostPane();
-		List<Post> posts = control.getPosts();
+		posts = control.getPosts();
 		posts = filterPosts(posts);
 		int row = 1;
 		for(Post post: posts) {
@@ -155,7 +156,7 @@ public class PostsView extends View{
 			}
 		}).filter(p-> {
 			if(filter.authorIdF != null && filter.authorIdF.trim().length() > 0) {
-				return p.getAuthorId().toUpperCase().equals(filter.authorIdF.trim().toUpperCase());
+				return p.getAuthorId().trim().toUpperCase().equals(filter.authorIdF.trim().toUpperCase());
 			} else {
 				return true;
 			}
