@@ -59,6 +59,8 @@ public class DateTimePicker {
 			return answer;
 		} catch (DateTimeException e) {
 			return null;
+		} catch (NullPointerException e) {
+			return null;
 		}
 	}
 }

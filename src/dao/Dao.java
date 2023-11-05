@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import model.Post;
@@ -97,8 +98,27 @@ public class Dao {
 	}
 
 	public ArrayList<Post> getPosts()  {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Post> answer = new ArrayList<Post>();
+		Connection db = getConnection();
+		Statement statement;
+		try {
+			statement = db.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM posts");
+			while(result.next()) {
+				Post newPost = new Post(result.getInt("postId"),result.getString("content"),
+						result.getString("authorId"), result.getInt("likes"),
+						result.getInt("shares"), LocalDateTime.parse(result.getString("postDateTime")),
+						result.getInt("parentId"));
+				answer.add(newPost);
+			}
+
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return answer;
 	}
 
 	public void addUser(User user)  {

@@ -46,6 +46,7 @@ public class DAHManager {
 	private DAHManager()  {
 		try {
 			data = new Dao();
+			posts = data.getPosts();
 		} catch (DAOUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

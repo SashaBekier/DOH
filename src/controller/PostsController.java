@@ -2,9 +2,10 @@ package controller;
 
 import javafx.scene.layout.Pane;
 import model.DAHManager;
+import model.Post;
 import model.User;
 import view.PostsView;
-import view.LogInView;
+import java.util.List;
 
 public class PostsController implements Controller {
 	private PostsView posts;
@@ -29,6 +30,9 @@ public class PostsController implements Controller {
 		User user = model.getActiveUser();
 		String[] attribs = user.getAttributes();
 		return attribs[2] + " " + attribs[3];
+	}
+	public List<Post> getPosts() {
+		return model.getPosts();
 	}
 
 }
