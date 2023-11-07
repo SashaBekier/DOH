@@ -26,7 +26,16 @@ import java.time.format.DateTimeParseException;
 public class Post {
 
 	private static final String COMMA_ENCODING = "%COMMA%";
-	public static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
+	
+	public static final int BY_POST_ID = 0;
+	public static final int BY_AUTHOR = 1;
+	public static final int BY_LIKES = 2;
+	public static final int BY_SHARES = 3;
+	public static final int BY_DATE = 4;
+	public static final int BY_PARENT = 5;
+	
+	
+	
 
 	/**
 	 * takes a string of text, removes any encoded commas such as might be

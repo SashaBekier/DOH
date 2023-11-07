@@ -23,10 +23,7 @@ public class DAHStage {
 			container.getChildren().add(middlePane);
 			container.getChildren().add(bottomPane);
 			
-			topPane.getChildren().add(new Label("Top Pane"));
-			middlePane.getChildren().add(new Label("Middle Pane"));
 			setBottomPane(Footer.getFooter());
-			
 			
 			Scene scene = new Scene(container,1200,400);
 			primaryStage.setScene(scene);

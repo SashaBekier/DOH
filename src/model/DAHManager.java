@@ -80,8 +80,13 @@ public class DAHManager {
 	 */
 	public void addPost(int id, String content, String author, int likes,
 			int shares, LocalDateTime dateTime, int parentID) {
-		posts.add(new Post(id, content, author, likes, shares, dateTime,
-				parentID));
+		Post newPost = new Post(id, content, author, likes, shares, dateTime, parentID);
+		addPost(newPost);
+	}
+	
+	public void addPost(Post post) {
+		posts.add(post);
+		data.addNewPost(post);
 	}
 
 	/**
@@ -169,31 +174,6 @@ public class DAHManager {
 	 *                               not map to a file
 	 * @See Post.toCSVRepr
 	 */
-	public int[] importPostsFrom(String fileName) throws FileNotFoundException {
-		File myFile = new File(fileName);
-		int[] result = new int[2];
-		Scanner file = new Scanner(myFile);
-		String line = "";
-		while (file.hasNextLine()) {
-			line = file.nextLine();
-			if (!line.equals(Post.CSV_HEADER)) {
-				try {
-					Post newPost = Post.fromCSVRepr(line);
-					posts.add(newPost);
-					data.addNewPost(newPost);
-					result[0]++;
-				} catch (NumberFormatException e) {
-					result[1]++;
-				} catch (DateTimeParseException e) {
-					result[1]++;
-				} catch (ArrayIndexOutOfBoundsException e) {
-					result[1]++;
-				}
-			}
-		}
-		file.close();
-		return result;
-	}
 
 	/**
 	 * removes a post from the collection based on its id

@@ -20,8 +20,7 @@ import model.Post;
 public class PostsView extends View{
 	private PostsController control;
 	private GridPane postPane;
-	private PostFilter filter = new PostFilter();
-	private PostSorter sorter = new PostSorter();
+	
 	private List<Post> posts;
 	
 
@@ -57,22 +56,22 @@ public class PostsView extends View{
 		
 		submit.setOnAction(e -> {
 				if(postIdFilter.getText().length() > 0) {
-					filter.postIdF = Integer.parseInt(postIdFilter.getText().trim());
+					PostFilter.postIdF = Integer.parseInt(postIdFilter.getText().trim());
 				} else {
-					filter.postIdF = null;
+					PostFilter.postIdF = null;
 				}
 				if(authorIdFilter.getText().trim().length() > 0) {
-					filter.authorIdF = authorIdFilter.getText();
+					PostFilter.authorIdF = authorIdFilter.getText();
 				} else {
-					filter.authorIdF = null;
+					PostFilter.authorIdF = null;
 				}
 				if(showReplies.isSelected()) {
-					filter.showRepliesF = true;
+					PostFilter.showRepliesF = true;
 				} else {
-					filter.showRepliesF = false;
+					PostFilter.showRepliesF = false;
 				}
-				filter.fromDate = fromDateTimePicker.getDateTime();
-				filter.toDate = toDateTimePicker.getDateTime();
+				PostFilter.fromDate = fromDateTimePicker.getDateTime();
+				PostFilter.toDate = toDateTimePicker.getDateTime();
 				updatePostPane();
 				
 			});
@@ -149,55 +148,87 @@ public class PostsView extends View{
 	private List<Post> filterPosts(List<Post> posts){
 		
 		posts = posts.stream().filter(p -> {
-			if(filter.postIdF != null) {
-				return (p.getId()==filter.postIdF || p.getParentId()==filter.postIdF) ;
+			if(PostFilter.postIdF != null) {
+				return (p.getId()==PostFilter.postIdF || p.getParentId()==PostFilter.postIdF) ;
 			} else {
 				return true;
 			}
 		}).filter(p-> {
-			if(filter.authorIdF != null && filter.authorIdF.trim().length() > 0) {
-				return p.getAuthorId().trim().toUpperCase().equals(filter.authorIdF.trim().toUpperCase());
+			if(PostFilter.authorIdF != null && PostFilter.authorIdF.trim().length() > 0) {
+				return p.getAuthorId().trim().toUpperCase().equals(PostFilter.authorIdF.trim().toUpperCase());
 			} else {
 				return true;
 			}
 		}).filter(p-> {
-			if(filter.showRepliesF) {
+			if(PostFilter.showRepliesF) {
 				return true;
 			} else {
 				return p.getParentId()==0;
 			}
 		}).filter(p-> {
-			if(filter.fromDate != null) {
-				return p.getPostedAt().compareTo(filter.fromDate) >= 0;
+			if(PostFilter.fromDate != null) {
+				return p.getPostedAt().compareTo(PostFilter.fromDate) >= 0;
 			} else {
 				return true;
 			}
 		}).filter(p-> {
-			if(filter.toDate != null) {
-				return p.getPostedAt().compareTo(filter.toDate) <= 0;
+			if(PostFilter.toDate != null) {
+				return p.getPostedAt().compareTo(PostFilter.toDate) <= 0;
 			} else {
 				return true;
 			}
 		}).collect(Collectors.toList());
-		
-		
-		
-		
-
 		return posts;
 	}
 
+	private List<Post> sortPosts(List<Post> posts,int sortBy){
+		
+
+		switch(sortBy) {
+			case Post.BY_POST_ID: 
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+			case Post.BY_AUTHOR: 
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+			case Post.BY_LIKES:
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+			case Post.BY_SHARES:
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+			case Post.BY_DATE:
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+			case Post.BY_PARENT:
+				posts = posts.stream().collect(Collectors.toList());
+				break;
+		}
+		PostFilter.ascending[sortBy] = !PostFilter.ascending[sortBy];
+		return posts;
+	}
+	
+	private void clearFilters() {
+		for(boolean asc: PostFilter.ascending) {
+			asc = !asc;
+		}
+		PostFilter.postIdF = null;
+		PostFilter.authorIdF = null;
+		PostFilter.showRepliesF = true;
+		PostFilter.fromDate = null;
+		PostFilter.toDate = null;
+	}
 	
 }
 
 class PostFilter{
-	Integer postIdF;
-	String authorIdF = null;
-	boolean showRepliesF = true;
-	LocalDateTime fromDate;
-	LocalDateTime toDate;
+	static boolean[] ascending = {true, true, true, true, true, true};
+	static Integer postIdF = null;
+	static String authorIdF = null;
+	static boolean showRepliesF = true;
+	static LocalDateTime fromDate = null;
+	static LocalDateTime toDate = null;
+	
+
 }
 
-class PostSorter{
-	
-}

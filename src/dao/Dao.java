@@ -1,17 +1,24 @@
 package dao;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import model.DAHManager;
 import model.Post;
 import model.User;
 
 public class Dao {
+	private DAHManager model = DAHManager.getManager();
+	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
 	public Dao() throws DAOUnavailableException {
 		confirmDBStructure();
@@ -224,4 +231,30 @@ public class Dao {
 		}
 		
 	}
+	
+	public int[] importPostsFrom(String fileName) throws FileNotFoundException {
+		File myFile = new File(fileName);
+		int[] result = new int[2];
+		Scanner file = new Scanner(myFile);
+		String line = "";
+		while (file.hasNextLine()) {
+			line = file.nextLine();
+			if (!line.equals(CSV_HEADER)) {
+				try {
+					Post newPost = Post.fromCSVRepr(line);
+					model.addPost(newPost);
+					result[0]++;
+				} catch (NumberFormatException e) {
+					result[1]++;
+				} catch (DateTimeParseException e) {
+					result[1]++;
+				} catch (ArrayIndexOutOfBoundsException e) {
+					result[1]++;
+				}
+			}
+		}
+		file.close();
+		return result;
+	}
+
 }
