@@ -17,7 +17,7 @@ import model.Post;
 import model.User;
 
 public class Dao {
-	private DAHManager model = DAHManager.getManager();
+	private DAHManager model;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
 	public Dao() throws DAOUnavailableException {
@@ -233,6 +233,9 @@ public class Dao {
 	}
 	
 	public int[] importPostsFrom(String fileName) throws FileNotFoundException {
+		if(model == null) {
+			model = DAHManager.getManager();
+		}
 		File myFile = new File(fileName);
 		int[] result = new int[2];
 		Scanner file = new Scanner(myFile);

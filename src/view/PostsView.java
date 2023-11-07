@@ -182,8 +182,6 @@ public class PostsView extends View{
 	}
 
 	private List<Post> sortPosts(List<Post> posts,int sortBy){
-		
-
 		switch(sortBy) {
 			case Post.BY_POST_ID: 
 				posts = posts.stream().collect(Collectors.toList());

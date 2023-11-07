@@ -85,7 +85,11 @@ public class DAHManager {
 	}
 	
 	public void addPost(Post post) {
-		posts.add(post);
+		try {
+			getPostById(post.getId());
+		} catch (InvalidPostIdException e) {
+			posts.add(post);
+		}
 		data.addNewPost(post);
 	}
 
@@ -213,5 +217,9 @@ public class DAHManager {
 
 	public void logOut() {
 		activeUser = null;
+	}
+
+	public void importPostsFrom(String file) throws FileNotFoundException {
+		data.importPostsFrom(file);
 	}
 }
