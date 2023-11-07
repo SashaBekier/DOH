@@ -1,13 +1,21 @@
 package view;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import controller.PostsController;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,11 +30,13 @@ public class PostsView extends View{
 	private GridPane postPane;
 	
 	private List<Post> posts;
+	private Image sortArrow = new Image("assets/arrow.png");
+	private int activeSort = 0;
+	private HashMap<Integer, Button> sortButtons = new HashMap<Integer, Button>();
 	
 
 	public PostsView(PostsController postController) {
 		control = postController;
-		//posts = control.getPosts();
 		drawTop();
 		drawMiddle();
 	}
@@ -35,13 +45,12 @@ public class PostsView extends View{
 		middlePane = new VBox(2);
 		
 		HBox filters = new HBox();
-		ValidatedButton submit = new ValidatedButton("Apply");
+		Button submit = new Button("Apply");
 		
 		
 		
-		ValidatedTextField postIdFilter = new ValidatedTextField(
-				s -> Validators.isIntBetweenOrBlank(1, Integer.MAX_VALUE, s), submit);
-		submit.addValid();
+		TextField postIdFilter = new TextField();
+		
 		
 		TextField authorIdFilter = new TextField();
 		
@@ -55,8 +64,13 @@ public class PostsView extends View{
 		HBox toDate = toDateTimePicker.getControl();
 		
 		submit.setOnAction(e -> {
+				
 				if(postIdFilter.getText().length() > 0) {
-					PostFilter.postIdF = Integer.parseInt(postIdFilter.getText().trim());
+					try {
+						PostFilter.postIdF = Integer.parseInt(postIdFilter.getText().trim());
+					} catch (NumberFormatException nfe) {
+						PostFilter.postIdF = null;
+					}
 				} else {
 					PostFilter.postIdF = null;
 				}
@@ -72,6 +86,7 @@ public class PostsView extends View{
 				}
 				PostFilter.fromDate = fromDateTimePicker.getDateTime();
 				PostFilter.toDate = toDateTimePicker.getDateTime();
+				posts = filterPosts();
 				updatePostPane();
 				
 			});
@@ -103,13 +118,35 @@ public class PostsView extends View{
 		
 		
 	}
+	
+	private void updateSortButton(Button b,int sortBy) {
+		
+		if(activeSort == sortBy) {
+			b.getGraphic().setVisible(true);
+			if(!PostFilter.ascending[sortBy]) {
+				b.getGraphic().setRotate(180);
+			} else {
+				b.getGraphic().setRotate(0);
+			}
+		} else {
+			b.getGraphic().setVisible(false);
+		}
+	}
 
 	private void updatePostPane() {
-		initPostPane();
-		posts = control.getPosts();
-		posts = filterPosts(posts);
+		if(postPane == null) {
+			initPostPane();
+		}
+		
+		postPane.getChildren().removeIf(child -> GridPane.getRowIndex(child)>0);
+		for(int i = 0; i < sortButtons.size();i++) {
+			updateSortButton(sortButtons.get(i),i);
+		}
+		
+		
 		int row = 1;
 		for(Post post: posts) {
+			
 			postPane.add(new Label(String.valueOf(post.getId())), 0, row);
 			postPane.add(new Label(post.getAuthorId()), 1, row);
 			postPane.add(new Label(post.getContent()), 2, row);
@@ -124,17 +161,43 @@ public class PostsView extends View{
 		}
 	}
 	
+	private Button getSortButton(String text,int sortBy) {
+		Button button = new Button(text);
+		ImageView bArrow = new ImageView(sortArrow);
+		button.setGraphic(bArrow);
+		
+		button.setContentDisplay(ContentDisplay.RIGHT);
+		button.setOnAction(e -> {
+			activeSort = sortBy;
+			PostFilter.ascending[activeSort] = !PostFilter.ascending[activeSort];
+			sortPosts();
+			updatePostPane();			
+		});
+		sortButtons.put(sortBy, button);
+		return button;
+	}
+	
 	private void initPostPane() {
+		posts = filterPosts();
 		middlePane.getChildren().remove(postPane);
 		
 		postPane = new GridPane();
-		postPane.add(new Label("Post ID"), 0, 0);
-		postPane.add(new Label("Author"), 1, 0);
-		postPane.add(new Label("Content"), 2, 0);
-		postPane.add(new Label("Likes"), 3, 0);
-		postPane.add(new Label("Shares"), 4, 0);
-		postPane.add(new Label("Reply To"), 5, 0);
-		postPane.add(new Label("Date Posted"), 6, 0);
+		
+		Button byPostId = getSortButton("Post ID", Post.BY_POST_ID);
+		Button byAuthor = getSortButton("Author", Post.BY_AUTHOR);
+		Button byLikes = getSortButton("Likes", Post.BY_LIKES);
+		Button byShares = getSortButton("Shares", Post.BY_SHARES);
+		Button byDate = getSortButton("Date Posted", Post.BY_DATE);
+		Button byParent = getSortButton("Reply To", Post.BY_PARENT);
+		
+		
+		postPane.add(byPostId, 0, 0);
+		postPane.add(byAuthor, 1, 0);
+		postPane.add(new Button("Content"), 2, 0);
+		postPane.add(byLikes, 3, 0);
+		postPane.add(byShares, 4, 0);
+		postPane.add(byParent, 5, 0);
+		postPane.add(byDate, 6, 0);
 		
 		middlePane.getChildren().add(postPane);
 		
@@ -145,11 +208,11 @@ public class PostsView extends View{
 		
 	}
 	
-	private List<Post> filterPosts(List<Post> posts){
-		
+	private List<Post> filterPosts(){
+		posts = control.getPosts();
 		posts = posts.stream().filter(p -> {
 			if(PostFilter.postIdF != null) {
-				return (p.getId()==PostFilter.postIdF || p.getParentId()==PostFilter.postIdF) ;
+				return (p.getId()==PostFilter.postIdF) ;
 			} else {
 				return true;
 			}
@@ -165,7 +228,24 @@ public class PostsView extends View{
 			} else {
 				return p.getParentId()==0;
 			}
-		}).filter(p-> {
+		}).collect(Collectors.toList());
+		
+		//add any dropped replies if requested
+		if(PostFilter.showRepliesF) {
+			HashSet<Integer> postIds = new HashSet<Integer>();
+			for(Post p1: posts) {
+				postIds.add(p1.getId());
+			}
+			for(Post p2: control.getPosts()) {
+				if(postIds.contains(p2.getParentId()) &&
+						!postIds.contains(p2.getId())){
+					posts.add(p2);
+				}
+			}
+		}
+		
+		//refilter for date range after replies have been added to list
+		posts = posts.stream().filter(p-> {
 			if(PostFilter.fromDate != null) {
 				return p.getPostedAt().compareTo(PostFilter.fromDate) >= 0;
 			} else {
@@ -178,32 +258,39 @@ public class PostsView extends View{
 				return true;
 			}
 		}).collect(Collectors.toList());
+
 		return posts;
 	}
 
-	private List<Post> sortPosts(List<Post> posts,int sortBy){
-		switch(sortBy) {
+	private void sortPosts(){
+		switch(activeSort) {
 			case Post.BY_POST_ID: 
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getId));
 				break;
 			case Post.BY_AUTHOR: 
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getAuthorId));
 				break;
 			case Post.BY_LIKES:
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getLikes)
+						.thenComparing(Post::getPostedAt));
 				break;
 			case Post.BY_SHARES:
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getShares)
+						.thenComparing(Post::getPostedAt));
 				break;
 			case Post.BY_DATE:
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getPostedAt));
+				
 				break;
 			case Post.BY_PARENT:
-				posts = posts.stream().collect(Collectors.toList());
+				posts.sort(Comparator.comparing(Post::getParentId));
 				break;
 		}
-		PostFilter.ascending[sortBy] = !PostFilter.ascending[sortBy];
-		return posts;
+		if(PostFilter.ascending[activeSort] == false) {
+			Collections.reverse(posts);
+		}
+		
+		
 	}
 	
 	private void clearFilters() {
