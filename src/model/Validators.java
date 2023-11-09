@@ -1,6 +1,8 @@
 package model;
 
 public class Validators {
+	private static DAHManager model = DAHManager.getManager();
+	
 	public static boolean hasContent(String text) {
 		if(text.length() > 0) return true;
 		return false;
@@ -26,5 +28,9 @@ public class Validators {
 			return false;
 		}
 		return true;
+	}
+
+	public static boolean isOldPassword(String text) {
+		return model.getActiveUser().matchesPassword(text);
 	}
 }

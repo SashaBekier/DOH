@@ -16,9 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.Validators;
 import view.controls.DateTimePicker;
 import view.controls.ValidatedButton;
@@ -133,7 +136,7 @@ public class PostsView extends View{
 		}
 	}
 
-	private void updatePostPane() {
+	public void updatePostPane() {
 		if(postPane == null) {
 			initPostPane();
 		}
@@ -145,6 +148,7 @@ public class PostsView extends View{
 		
 		
 		int row = 1;
+		Button[] deleteButtons = new Button[posts.size()+1];
 		for(Post post: posts) {
 			
 			postPane.add(new Label(String.valueOf(post.getId())), 0, row);
@@ -154,6 +158,17 @@ public class PostsView extends View{
 			postPane.add(new Label(String.valueOf(post.getShares())), 4, row);
 			postPane.add(new Label(String.valueOf(post.getParentId())), 5, row);
 			postPane.add(new Label(String.valueOf(post.getPostedAt())), 6, row);
+			if(control.getActiveUser().hasAdmin() || post.getAuthorId().equals(control.getActiveUser().getUserName())) {
+				deleteButtons[row] = new Button("Delete Post");
+				deleteButtons[row].setStyle("-fx-background-color: #ff6666; -fx-border-color: #ff0000; ");
+				deleteButtons[row].setOnAction(e -> {
+					control.deletePost(post);
+					posts.remove(post);
+					updatePostPane();
+				});
+				
+				postPane.add(deleteButtons[row], 7, row);
+			}
 			row++;
 		}
 		if(row == 1) {

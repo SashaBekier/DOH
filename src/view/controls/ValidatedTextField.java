@@ -9,11 +9,13 @@ import javafx.scene.paint.Color;
 public class ValidatedTextField extends TextField implements ValidatedControl {
 	private boolean valid = false;
 	private ValidatedButton registeredButton;
+	private TextValidator validator;
 	
 	
 	public void registerButton(ValidatedButton button) {
 		registeredButton = button;
 		button.addTarget();
+		
 	}
 	
 	public ValidatedTextField(TextValidator validator, ValidatedButton button) {
@@ -22,19 +24,14 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	}
 	
 	public ValidatedTextField(TextValidator validator) {
-		this.setOnKeyTyped(e -> {
-			if(validator.validate(this.getText())) {
-				this.setBackground(new Background(new BackgroundFill(
-						Color.LIGHTGREEN,null,null)));
-				valid = true;
-				if(registeredButton != null) registeredButton.addValid();
-			} else {
-				this.setBackground(new Background(new BackgroundFill(
-						Color.LIGHTPINK,null,null)));
-				if(valid == true && registeredButton != null) registeredButton.takeValid();
-				valid = false;
-			}
-		});
+		this.validator = validator;
+		this.setOnKeyTyped(e -> validate());
+		
+	}
+	
+	public void setValidatedText(String text) {
+		super.setText(text);
+		validate();
 	}
 	
 	public void setValid(boolean isValid) {
@@ -47,5 +44,19 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	
 	public void setValue(String text) {
 		super.setText(text);
+	}
+	
+	private void validate() {
+		if(validator.validate(this.getText())) {
+			this.setBackground(new Background(new BackgroundFill(
+					Color.LIGHTGREEN,null,null)));
+			valid = true;
+			if(registeredButton != null) registeredButton.addValid();
+		} else {
+			this.setBackground(new Background(new BackgroundFill(
+					Color.LIGHTPINK,null,null)));
+			if(valid == true && registeredButton != null) registeredButton.takeValid();
+			valid = false;
+		}
 	}
 }

@@ -222,4 +222,22 @@ public class DAHManager {
 	public void importPostsFrom(String file) throws FileNotFoundException {
 		data.importPostsFrom(file);
 	}
+
+	public void updateActiveUserPassword(String text) {
+		activeUser.setPassword(text);
+		data.updateUser(activeUser);
+		
+	}
+
+	public void updateActiveUserDetails(String firstName, String lastName) {
+		activeUser.setFirstName(firstName);
+		activeUser.setLastName(lastName);
+		data.updateUser(activeUser);
+		
+	}
+	
+	public void deletePost(Post post) {
+		posts.remove(post);
+		data.deletePost(post.getId());
+	}
 }

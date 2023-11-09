@@ -20,6 +20,9 @@ public class Dao {
 	private DAHManager model;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
+	
+	//TODO https://www.baeldung.com/sql-injection - Prepared Statements to avoid SQL injection in JDBC
+	
 	public Dao() throws DAOUnavailableException {
 		confirmDBStructure();
 		confirmSuperAdmin();
@@ -150,7 +153,23 @@ public class Dao {
 	}
 
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
+		Connection db = getConnection();
+		try{
+			Statement statement = db.createStatement();
+			String[] userAttribs = user.getAttributes();
+			String query = "UPDATE users SET "
+					+ "password = '" + userAttribs[1] + "', "
+					+ "firstName = '" + userAttribs[2] + "', "
+					+ "lastName = '" + userAttribs[3] + "', "
+					+ "isAdmin = '" + userAttribs[4] + "', "
+					+ "isVIP = '" + userAttribs[5] + "'"
+					+ " WHERE username = '" + userAttribs[0] + "'";
+			statement.executeUpdate(query);	
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
 
 	}
 
@@ -259,5 +278,20 @@ public class Dao {
 		file.close();
 		return result;
 	}
+	
+	public void deletePost(int id) {
+		Connection db = getConnection();
+		
+		try {
+			Statement statement = db.createStatement();
+			statement.executeUpdate("DELETE FROM posts WHERE postId = " + id);
+			db.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 }

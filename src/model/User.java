@@ -24,6 +24,10 @@ public class User {
 		authorIds.add(alias);
 	}
 	
+	public String getDisplayName() {
+		return firstName + " " + lastName;
+	}
+	
 	public void promoteAdmin() {
 		isAdmin = true;
 		isVIP = true;
@@ -67,6 +71,33 @@ public class User {
 	
 	public ArrayList<String> getAuthorIDs() {
 		return authorIds;
+	}
+
+	public String getUserName() {
+		return username;
+	}
+	
+	public boolean matchesPassword(String text) {
+		return text.equals(password);
+	}
+
+	public void setPassword(String text) {
+		password = text;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;		
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;		
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
 	}
 	
 	

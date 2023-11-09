@@ -20,6 +20,7 @@ public class PostsController implements Controller {
 	}
 	@Override
 	public Pane[] getPanes() {
+		posts.updatePostPane();
 		return posts.getPanes();
 	}
 	
@@ -37,6 +38,12 @@ public class PostsController implements Controller {
 	public void callExportCsvView(List<Post> exportPosts) {
 		// TODO Auto-generated method stub
 		
+	}
+	public User getActiveUser() {
+		return model.getActiveUser();
+	}
+	public void deletePost(Post post) {
+		model.deletePost(post);
 	}
 
 }

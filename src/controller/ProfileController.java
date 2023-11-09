@@ -25,10 +25,20 @@ public class ProfileController implements Controller {
 	public Pane getDashboard() {
 		return control.getDashboard();
 	}
-	public String getActiveUserDisplayName() {
-		User user = model.getActiveUser();
-		String[] attribs = user.getAttributes();
-		return attribs[2] + " " + attribs[3];
+	public User getActiveUser() {
+		return model.getActiveUser();
+	}
+	public void updatePassword(String text) {
+		model.updateActiveUserPassword(text);
+	}
+	public void updateUser(String firstName, String lastName) {
+		model.updateActiveUserDetails(firstName, lastName);
+		
+	}
+	
+	public void updateView() {
+		profile = new ProfileView(this);
+		control.updateStage("Profile");
 	}
 
 }

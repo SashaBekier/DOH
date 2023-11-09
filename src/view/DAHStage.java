@@ -32,9 +32,7 @@ public class DAHStage {
 			e.printStackTrace();
 		}
 		
-		Pane replacementPane = new HBox(3);
-		replacementPane.getChildren().add(new Label("Replaced"));
-		setMiddlePane(replacementPane);
+		
 
 	}
 	
