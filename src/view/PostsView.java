@@ -20,6 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Validators;
@@ -42,6 +43,12 @@ public class PostsView extends View{
 		control = postController;
 		drawTop();
 		drawMiddle();
+	}
+	
+	@Override
+	public Pane[] getPanes() {
+		posts = control.getPosts();
+		return super.getPanes();
 	}
 
 	private void drawMiddle() {

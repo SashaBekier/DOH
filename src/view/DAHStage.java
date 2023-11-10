@@ -1,5 +1,6 @@
 package view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -22,7 +23,6 @@ public class DAHStage {
 			container.getChildren().add(topPane);
 			container.getChildren().add(middlePane);
 			container.getChildren().add(bottomPane);
-			
 			setBottomPane(Footer.getFooter());
 			
 			Scene scene = new Scene(container,1200,400);
