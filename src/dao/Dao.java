@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +19,21 @@ import model.User;
 
 public class Dao {
 	private DAHManager model;
+	private DatabaseManagementSystem dbms;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
 	
-	//TODO https://www.baeldung.com/sql-injection - Prepared Statements to avoid SQL injection in JDBC
-	
 	public Dao() throws DAOUnavailableException {
+		if(dbms == null) {
+			dbms = new SQLite();
+		}
+		confirmDBStructure();
+		confirmSuperAdmin();
+		
+	}
+	
+	public Dao(DatabaseManagementSystem db) throws DAOUnavailableException {
+		dbms = db;
 		confirmDBStructure();
 		confirmSuperAdmin();
 		
@@ -34,47 +44,15 @@ public class Dao {
 		Statement statement;
 		try {
 			statement = db.createStatement();
-		
-			String query = "CREATE TABLE IF NOT EXISTS users ("
-					+ "    username  TEXT (20)   PRIMARY KEY"
-					+ "                          UNIQUE"
-					+ "                          NOT NULL,"
-					+ "    password  TEXT (20)   NOT NULL,"
-					+ "    firstName TEXT (30),"
-					+ "    lastName  TEXT (30)   NOT NULL,"
-					+ "    isAdmin   INTEGER (1) NOT NULL"
-					+ "                          DEFAULT (0),"
-					+ "    isVIP     INTEGER (1) NOT NULL"
-					+ "                          DEFAULT (0) "
-					+ ");";
+			String query = dbms.createUsersTable();
 			statement.execute(query);
 			
-			query = "CREATE TABLE IF NOT EXISTS userAlias ("
-					+ "    username TEXT (20) REFERENCES users (username) "
-					+ "                       NOT NULL,"
-					+ "    alias    TEXT (20) NOT NULL"
-					+ "                       UNIQUE,"
-					+ "    PRIMARY KEY ("
-					+ "        username,"
-					+ "        alias"
-					+ "    )"
-					+ ");";
+			query = dbms.createUserAliasTable();
 			statement.execute(query);
-			query = "CREATE TABLE IF NOT EXISTS posts ("
-					+ "    postId       INTEGER     PRIMARY KEY"
-					+ "                             UNIQUE"
-					+ "                             NOT NULL,"
-					+ "    content      TEXT        NOT NULL,"
-					+ "    authorId     TEXT (20)   NOT NULL,"
-					+ "    likes        INTEGER (6) NOT NULL"
-					+ "                             DEFAULT (0),"
-					+ "    shares       INTEGER (6) NOT NULL"
-					+ "                             DEFAULT (0),"
-					+ "    parentId     INTEGER     NOT NULL"
-					+ "                             DEFAULT (0),"
-					+ "    postDateTime TEXT (16)   NOT NULL"
-					+ ");";
+			
+			query = dbms.createPostsTable();
 			statement.execute(query);
+			
 			db.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,16 +63,18 @@ public class Dao {
 	public User validateUser(String username, String password){
 		User validatedUser = null;
 		Connection db = getConnection();
-		Statement statement;
-		try {
-			statement = db.createStatement();
 		
-			ResultSet result = statement.executeQuery("SELECT * FROM users WHERE username = '"+username+"' AND " +
-					"password = '"+password+"'");
+		try {
+			PreparedStatement validateLogIn = db.prepareStatement(dbms.validateLogIn());
+			validateLogIn.setString(1, username);
+			validateLogIn.setString(2, password);
+			ResultSet result = validateLogIn.executeQuery();
 			if(result.next()) {
 				validatedUser = readUser(result);
-				ResultSet alias = statement.executeQuery("SELECT alias FROM userAlias WHERE username = '\"+username+\"'");
-				if(alias.next()) {
+				PreparedStatement getAlias = db.prepareStatement(dbms.getAliasByUsername());
+				getAlias.setString(1, username);
+				ResultSet alias = getAlias.executeQuery();
+				while(alias.next()) {
 					validatedUser.addAuthorAlias(alias.getString(0));
 				}
 			}
@@ -113,7 +93,7 @@ public class Dao {
 		Statement statement;
 		try {
 			statement = db.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM posts");
+			ResultSet result = statement.executeQuery(dbms.getAllPosts());
 			while(result.next()) {
 				Post newPost = new Post(result.getInt("postId"),result.getString("content"),
 						result.getString("authorId"), result.getInt("likes"),
@@ -121,69 +101,52 @@ public class Dao {
 						result.getInt("parentId"));
 				answer.add(newPost);
 			}
-
 			db.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
 		return answer;
 	}
 
 	public void addUser(User user)  {
 		Connection db = getConnection();
 		try{
-			Statement statement = db.createStatement();
-			String[] userAttribs = user.getAttributes();
-			String query = "INSERT INTO users VALUES "
-					+ "('" + userAttribs[0] + "', "
-					+ "'" + userAttribs[1] + "', "
-					+ "'" + userAttribs[2] + "', "
-					+ "'" + userAttribs[3] + "', "
-					+ "'" + userAttribs[4] + "', "
-					+ "'" + userAttribs[5] + "')";
-			statement.execute(query);	
+			PreparedStatement addUserQuery = db.prepareStatement(dbms.addUser());
+			addUserQuery.setString(1, user.getUserName());
+			addUserQuery.setString(2, user.getPassword());
+			addUserQuery.setString(3, user.getFirstName());
+			addUserQuery.setString(4, user.getLastName());
+			addUserQuery.setBoolean(5, user.hasAdmin());
+			addUserQuery.setBoolean(6, user.hasVIP());
+			addUserQuery.executeUpdate();	
 			db.close();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
-
 	}
 
 	public void updateUser(User user) {
 		Connection db = getConnection();
 		try{
-			Statement statement = db.createStatement();
-			String[] userAttribs = user.getAttributes();
-			String query = "UPDATE users SET "
-					+ "password = '" + userAttribs[1] + "', "
-					+ "firstName = '" + userAttribs[2] + "', "
-					+ "lastName = '" + userAttribs[3] + "', "
-					+ "isAdmin = '" + userAttribs[4] + "', "
-					+ "isVIP = '" + userAttribs[5] + "'"
-					+ " WHERE username = '" + userAttribs[0] + "'";
-			statement.executeUpdate(query);	
+			PreparedStatement updateUserQuery = db.prepareStatement(dbms.addUser());
+			updateUserQuery.setString(1, user.getPassword());
+			updateUserQuery.setString(2, user.getFirstName());
+			updateUserQuery.setString(3, user.getLastName());
+			updateUserQuery.setBoolean(4, user.hasAdmin());
+			updateUserQuery.setBoolean(5, user.hasVIP());
+			updateUserQuery.setString(6, user.getUserName());
+			updateUserQuery.executeUpdate();	
 			db.close();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
-
-	}
-
-	public void savePosts(ArrayList<Post> posts) {
-		// TODO Auto-generated method stub
 	}
 	
 	private Connection getConnection() {
-		
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:sqlite:dah.db");
+			connection = DriverManager.getConnection(dbms.getJDBCConnectionString());
 		} catch (SQLException e) {
-			// TODO Quit program
 			e.printStackTrace();
 		}
 		return connection;
@@ -195,13 +158,12 @@ public class Dao {
 		try {
 			statement = db.createStatement();
 			int rowCount = 0;
-			ResultSet res = statement.executeQuery("SELECT * FROM users WHERE username = 'superadmin'");
+			ResultSet res = statement.executeQuery(dbms.confirmSuperAdmin());
 			while(res.next()) {
 				rowCount++;
 			}
 			if(rowCount < 1){
-				statement.executeUpdate("INSERT INTO users "
-						+ "VALUES ('superadmin','admin','Super','Admin',1,1)");
+				statement.executeUpdate(dbms.insertSuperAdmin());
 			}
 			db.close();
 		} catch (SQLException e) {
@@ -225,31 +187,67 @@ public class Dao {
 	}
 
 	public void addNewPost(Post newPost) {
-		String testQuery = "SELECT * FROM posts WHERE postId = '" +newPost.getId() + "'";
 		Connection db = getConnection();
-		
 		try {
-			Statement statement = db.createStatement();
-			ResultSet test = statement.executeQuery(testQuery);
-			int rowCount = 0;
-			while(test.next()) rowCount++;
-			if(rowCount < 1) {
-				String insert = "INSERT INTO posts VALUES ('" + newPost.getId() + "', "
-						+ "'" + newPost.getContent() + "', "
-						+ "'" + newPost.getAuthorId() + "', "
-						+ "'" + newPost.getLikes() + "', "
-						+ "'" + newPost.getShares() + "', "
-						+ "'" + newPost.getParentId() + "', "
-						+ "'" + newPost.getPostedAt() + "')";
-				statement.executeUpdate(insert);		
+			if(!postIdExists(newPost.getId())) {
+				PreparedStatement insertPost = db.prepareStatement(dbms.addPost());
+				insertPost.setInt(1, newPost.getId());
+				insertPost.setString(2, newPost.getContent());
+				insertPost.setString(3, newPost.getAuthorId());
+				insertPost.setInt(4, newPost.getLikes());
+				insertPost.setInt(5, newPost.getShares());
+				insertPost.setInt(6, newPost.getParentId());
+				insertPost.setString(7, newPost.getPostedAt().toString());
+				insertPost.executeUpdate();		
 			}
 			db.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
+	public boolean postIdExists(int id) {
+		Connection db = getConnection();
+		boolean answer = false;
+		try {
+			PreparedStatement checkIdQuery = db.prepareStatement(dbms.getPostById());
+			checkIdQuery.setInt(1, id);
+			ResultSet test = checkIdQuery.executeQuery();
+			while(test.next())answer = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answer;
+	}
+	
+	public boolean usernameExists(String username) {
+		Connection db = getConnection();
+		boolean answer = false;
+		try {
+			PreparedStatement usernameQuery = db.prepareStatement(dbms.getUserByUsername());
+			usernameQuery.setString(1, username);
+			ResultSet test = usernameQuery.executeQuery();
+			while(test.next())answer = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answer;
+	}
+	
+	public void deletePost(int id) {
+		Connection db = getConnection();
+		try {
+			PreparedStatement deletePostById = db.prepareStatement(dbms.deletePostById());
+			deletePostById.setInt(1, id);
+			deletePostById.executeUpdate();
+			db.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 	public int[] importPostsFrom(String fileName) throws FileNotFoundException {
 		if(model == null) {
@@ -279,18 +277,6 @@ public class Dao {
 		return result;
 	}
 	
-	public void deletePost(int id) {
-		Connection db = getConnection();
-		
-		try {
-			Statement statement = db.createStatement();
-			statement.executeUpdate("DELETE FROM posts WHERE postId = " + id);
-			db.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	
 
