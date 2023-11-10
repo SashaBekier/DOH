@@ -29,9 +29,7 @@ public class AddController implements Controller {
 		return control.getDashboard();
 	}
 	public String getActiveUserDisplayName() {
-		User user = model.getActiveUser();
-		String[] attribs = user.getAttributes();
-		return attribs[2] + " " + attribs[3];
+		return model.getActiveUserDisplayName();
 	}
 	public ArrayList<String> getAuthorIds() {
 		return model.getActiveUser().getAuthorIDs();

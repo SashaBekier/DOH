@@ -26,9 +26,7 @@ public class GetVipController implements Controller {
 		return control.getDashboard();
 	}
 	public String getActiveUserDisplayName() {
-		User user = model.getActiveUser();
-		String[] attribs = user.getAttributes();
-		return attribs[2] + " " + attribs[3];
+		return model.getActiveUserDisplayName();
 	}
 
 }

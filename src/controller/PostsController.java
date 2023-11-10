@@ -28,9 +28,7 @@ public class PostsController implements Controller {
 		return control.getDashboard();
 	}
 	public String getActiveUserDisplayName() {
-		User user = model.getActiveUser();
-		String[] attribs = user.getAttributes();
-		return attribs[2] + " " + attribs[3];
+		return model.getActiveUserDisplayName();
 	}
 	public List<Post> getPosts() {
 		return model.getPosts();
