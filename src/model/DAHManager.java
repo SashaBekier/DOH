@@ -228,6 +228,10 @@ public class DAHManager {
 		data.updateUser(activeUser);
 		
 	}
+	
+	public String getActiveUserDisplayName() {
+		return activeUser.getDisplayName();
+	}
 
 	public void updateActiveUserDetails(String firstName, String lastName) {
 		activeUser.setFirstName(firstName);
