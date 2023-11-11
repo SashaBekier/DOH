@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
@@ -21,11 +22,11 @@ public class AddController implements Controller {
 		
 	}
 	@Override
-	public Pane[] getPanes() {
+	public HBox[] getPanes() {
 		return add.getPanes();
 	}
 	
-	public Pane getDashboard() {
+	public HBox getDashboard() {
 		return control.getDashboard();
 	}
 	public String getActiveUserDisplayName() {

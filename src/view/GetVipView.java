@@ -4,6 +4,7 @@ import controller.Controller;
 import controller.GetVipController;
 import controller.LogInController;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class GetVipView extends View{
@@ -16,7 +17,7 @@ public class GetVipView extends View{
 	}
 
 	private void drawMiddle() {
-		middlePane = new Pane();
+		middlePane = new HBox();
 		String userDisplayName = control.getActiveUserDisplayName();
 		Label greeting = new Label("GetVip Of " + userDisplayName);
 		middlePane.getChildren().add(greeting);

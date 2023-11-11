@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.User;
@@ -28,10 +29,11 @@ public class ProfileView extends View{
 	}
 
 	private void drawMiddle() {
-		middlePane = new VBox();
+		middlePane = new HBox();
+		VBox container = new VBox();
 		User activeUser = control.getActiveUser();
 		Label greeting = new Label("Profile Of " + activeUser.getDisplayName());
-		middlePane.getChildren().add(greeting);
+		container.getChildren().add(greeting);
 		
 		GridPane form = new GridPane();
 		form.add(new Label("Username"), 0, 0);
@@ -96,7 +98,8 @@ public class ProfileView extends View{
 			control.updateView();
 		});
 		
-		middlePane.getChildren().add(form);
+		container.getChildren().add(form);
+		middlePane.getChildren().add(container);
 	}
 
 	private void drawTop() {

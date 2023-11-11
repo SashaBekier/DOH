@@ -1,14 +1,15 @@
 package view;
 
 import controller.Controller;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public abstract class View {
-	protected Pane topPane;
-	protected Pane middlePane;
+	protected HBox topPane;
+	protected HBox middlePane;
 	
-	public Pane[] getPanes() {
-		Pane[] panes = {topPane, middlePane};
+	public HBox[] getPanes() {
+		HBox[] panes = {topPane, middlePane};
 		return panes;
 	}
 

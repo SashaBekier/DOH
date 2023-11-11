@@ -34,8 +34,10 @@ public class LogInView extends View{
 	
 
 	private void drawMiddle() {
-		middlePane = new VBox(4);
-		middlePane.getChildren().add(new Label("Log In"));
+		middlePane = new HBox();
+		VBox container = new VBox(4);
+		middlePane.getChildren().add(container);
+		container.getChildren().add(new Label("Log In"));
 		GridPane formFields = new GridPane(2,2);
 		formFields.add(new Label("Username: "),0,0);
 		TextField usernameSubmitted = new TextField();
@@ -43,17 +45,16 @@ public class LogInView extends View{
 		formFields.add(new Label("Password: "),0,1);
 		TextField passwordSubmitted = new PasswordField();
 		formFields.add(passwordSubmitted,1,1);
-		middlePane.getChildren().add(formFields);
+		container.getChildren().add(formFields);
 		HBox formSubmit = new HBox(3);
 		Label register = new Label("Register");
 		formSubmit.getChildren().add(register);
 		formSubmit.getChildren().add(new Label("Forgot Password"));
 		Button formSubmitted = new Button("Log In");
 		formSubmit.getChildren().add(formSubmitted);
-		middlePane.getChildren().add(formSubmit);
+		container.getChildren().add(formSubmit);
 		Label warning = new Label();
-		middlePane.getChildren().add(warning);
-		
+		container.getChildren().add(warning);
 		formSubmitted.setOnAction(e -> 
 			{
 				try {
@@ -70,24 +71,9 @@ public class LogInView extends View{
 	}
 	
 	private void drawTop() {
-		topPane = new VBox(2);
-		Pane blankBar = new Pane();
-		blankBar.setMinHeight(50);
-		topPane.getChildren().add(blankBar);
-		Pane banner = new Pane();
-		banner.setBackground(new Background(new BackgroundFill(
-				Color.DODGERBLUE,null,null)));
-		
-		banner.setMinHeight(50);
-		
-		Text bannerText = new Text(0,33,"Data Analytics Hub");
-		bannerText.setStroke(Color.ALICEBLUE);
-		bannerText.setFill(Color.ALICEBLUE);
-		bannerText.setFont(new Font(24));
-		bannerText.setWrappingWidth(400);
-		bannerText.setTextAlignment(TextAlignment.CENTER);
-		
-		banner.getChildren().add(bannerText);
+		topPane = new HBox();
+		VBox banner = Banner.getBanner();
+		banner.prefWidthProperty().bind(topPane.widthProperty());
 		topPane.getChildren().add(banner);
 	}
 

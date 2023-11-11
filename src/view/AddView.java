@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Validators;
@@ -28,9 +29,10 @@ public class AddView extends View{
 	}
 
 	private void drawMiddle() {
-		middlePane = new VBox(2);
+		middlePane = new HBox();
+		VBox container = new VBox();
 		Label heading = new Label("Add New Post");
-		middlePane.getChildren().add(heading);
+		container.getChildren().add(heading);
 		
 		GridPane form = new GridPane(2,8);
 		
@@ -74,8 +76,8 @@ public class AddView extends View{
 					dateTime.getText(), replyTo.getText());
 		});
 		
-		middlePane.getChildren().add(form);
-		
+		container.getChildren().add(form);
+		middlePane.getChildren().add(container);
 		
 		
 	}

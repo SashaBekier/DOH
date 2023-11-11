@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RegisterView extends View{
 	private RegisterController control;
@@ -18,12 +19,15 @@ public class RegisterView extends View{
 	}
 	
 	private void drawTop() {
-		topPane = new Pane();
+		topPane = new HBox();
+		VBox banner = Banner.getBanner();
+		banner.prefWidthProperty().bind(topPane.widthProperty());
+		topPane.getChildren().add(banner);
 		
 	}
 
 	private void drawMiddle() {
-		middlePane = new Pane();
+		middlePane = new HBox();
 		
 		GridPane form = new GridPane(2,5);
 		

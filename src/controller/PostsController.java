@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.Post;
@@ -19,12 +20,12 @@ public class PostsController implements Controller {
 		
 	}
 	@Override
-	public Pane[] getPanes() {
+	public HBox[] getPanes() {
 		posts.updatePostPane();
 		return posts.getPanes();
 	}
 	
-	public Pane getDashboard() {
+	public HBox getDashboard() {
 		return control.getDashboard();
 	}
 	public String getActiveUserDisplayName() {

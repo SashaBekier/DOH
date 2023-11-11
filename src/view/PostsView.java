@@ -32,7 +32,7 @@ import model.Post;
 public class PostsView extends View{
 	private PostsController control;
 	private GridPane postPane;
-	
+	private VBox container;
 	private List<Post> posts;
 	private Image sortArrow = new Image("assets/arrow.png");
 	private int activeSort = 0;
@@ -46,14 +46,14 @@ public class PostsView extends View{
 	}
 	
 	@Override
-	public Pane[] getPanes() {
+	public HBox[] getPanes() {
 		posts = control.getPosts();
 		return super.getPanes();
 	}
 
 	private void drawMiddle() {
-		middlePane = new VBox(2);
-		
+		middlePane = new HBox();
+		container = new VBox();
 		HBox filters = new HBox();
 		Button submit = new Button("Apply");
 		
@@ -112,14 +112,14 @@ public class PostsView extends View{
 		
 		
 		
-		middlePane.getChildren().add(filters);
+		container.getChildren().add(filters);
 		
 		Button export = new Button("Export Posts to CSV");
 		export.setOnAction(e->{
 			control.callExportCsvView(posts);
 		});
 		
-		
+		middlePane.getChildren().add(container);
 		
 		
 		updatePostPane();
@@ -201,7 +201,7 @@ public class PostsView extends View{
 	
 	private void initPostPane() {
 		posts = filterPosts();
-		middlePane.getChildren().remove(postPane);
+		container.getChildren().remove(postPane);
 		
 		postPane = new GridPane();
 		
@@ -221,7 +221,7 @@ public class PostsView extends View{
 		postPane.add(byParent, 5, 0);
 		postPane.add(byDate, 6, 0);
 		
-		middlePane.getChildren().add(postPane);
+		container.getChildren().add(postPane);
 		
 	}
 

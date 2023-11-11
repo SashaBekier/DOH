@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import model.User;
@@ -16,7 +17,7 @@ public class DashboardController implements Controller {
 		dashboard = new DashboardView(this);
 	}
 	@Override
-	public Pane[] getPanes() {
+	public HBox[] getPanes() {
 		return dashboard.getPanes();
 	}
 	public void loadProfile() {

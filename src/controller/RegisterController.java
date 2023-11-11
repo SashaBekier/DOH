@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.DAHManager;
 import view.RegisterView;
@@ -15,7 +16,7 @@ public class RegisterController implements Controller {
 		model = DAHManager.getManager();
 	}
 	@Override
-	public Pane[] getPanes() {
+	public HBox[] getPanes() {
 		return register.getPanes();
 	}
 	public void registerUser(String username, String password, String firstName,

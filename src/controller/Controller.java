@@ -1,10 +1,11 @@
 package controller;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public interface Controller {
 	
-	public Pane[] getPanes();
+	public HBox[] getPanes();
 	
 
 }

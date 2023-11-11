@@ -3,6 +3,7 @@ package controller;
 import java.util.HashMap;
 
 import dao.DAOUnavailableException;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.DAHManager;
@@ -30,7 +31,7 @@ public class DAHController {
 		window.setMiddlePane(controllers.get(viewController).getPanes()[1]);
 	}
 
-	public Pane getDashboard() {
+	public HBox getDashboard() {
 		return dash.getPanes()[0];
 	}
 	

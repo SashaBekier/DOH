@@ -40,6 +40,6 @@ public class DashboardView extends View {
 	}
 	
 	private void drawMiddle() {
-		middlePane = new Pane();
+		middlePane = new HBox();
 	}
 }
