@@ -49,7 +49,7 @@ public class AddView extends View{
 		authorId.setValue(alias.get(0));
 		form.add(new Label("Author ID:"),0,0);
 		form.add(authorId, 1, 0);
-		TextField postId = new TextField();
+		ValidatedTextField postId = new ValidatedTextField(s -> Validators.isPostIdValidAndAvailable(s), submit);
 		ValidatedTextField content = new ValidatedTextField(s -> Validators.hasContent(s),submit);
 		TextField likes = new TextField();
 		TextField shares = new TextField();

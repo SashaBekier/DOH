@@ -13,10 +13,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		new DAHController(primaryStage);
-		
-		
-		
-		
 	}
 	
 	public static void main(String[] args) {

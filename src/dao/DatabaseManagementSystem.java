@@ -11,7 +11,6 @@ public interface DatabaseManagementSystem {
 	public String getAllPosts();
 	public String addUser();
 	public String updateUser();
-	public String confirmSuperAdmin();
 	public String insertSuperAdmin();
 	public String getPostById();
 	public String addPost();
@@ -109,11 +108,7 @@ public class SQLite implements DatabaseManagementSystem {
 				+ "isVIP = ? WHERE username = ?";
 	}
 
-	@Override
-	public String confirmSuperAdmin() {
-		return "SELECT * FROM users WHERE username = 'superadmin'";
-	}
-
+	
 	@Override
 	public String insertSuperAdmin() {
 		return "INSERT INTO users VALUES ('superadmin','admin','Super','Admin',1,1)";

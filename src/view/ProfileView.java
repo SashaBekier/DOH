@@ -77,8 +77,14 @@ public class ProfileView extends View{
 		changePassword.setOnAction(e -> 
 			showNodes(resetPasswordNodes, true));
 		
-		resetPassword.setOnAction(e -> 
-			control.updatePassword(newPassword1F.getText()));
+		resetPassword.setOnAction(e -> {
+			control.updatePassword(newPassword1F.getText());
+			oldPasswordF.setValidatedText("");
+			newPassword1F.setValidatedText("");
+			newPassword2F.setValidatedText("");
+			showNodes(resetPasswordNodes, false);
+			});
+		
 		
 		form.add(new Label("First Name :"), 0, 1);
 		TextField firstNameF = new TextField();

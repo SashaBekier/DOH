@@ -14,7 +14,9 @@ import java.io.File;
 
 import dao.DAOUnavailableException;
 import dao.Dao;
-import dao.InvalidLoginException; 
+import dao.InvalidLoginException;
+import dao.SQLite;
+
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -45,10 +47,9 @@ public class DAHManager {
 	
 	private DAHManager()  {
 		try {
-			data = new Dao();
+			data = new Dao(new SQLite());
 			posts = data.getPosts();
 		} catch (DAOUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

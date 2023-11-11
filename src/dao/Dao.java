@@ -22,22 +22,18 @@ public class Dao {
 	private DatabaseManagementSystem dbms;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
-	
-	public Dao() throws DAOUnavailableException {
-		if(dbms == null) {
-			dbms = new SQLite();
-		}
-		confirmDBStructure();
-		confirmSuperAdmin();
-		
-	}
-	
 	public Dao(DatabaseManagementSystem db) throws DAOUnavailableException {
 		dbms = db;
 		confirmDBStructure();
-		confirmSuperAdmin();
-		
 	}
+	
+	private void confirmSuperAdmin() {
+		if(!usernameExists("Superadmin")) {
+			dbms.insertSuperAdmin();
+		}
+	}
+
+
 
 	private void confirmDBStructure() {
 		Connection db = getConnection();
@@ -52,6 +48,8 @@ public class Dao {
 			
 			query = dbms.createPostsTable();
 			statement.execute(query);
+			
+			confirmSuperAdmin();
 			
 			db.close();
 		} catch (SQLException e) {
@@ -128,7 +126,7 @@ public class Dao {
 	public void updateUser(User user) {
 		Connection db = getConnection();
 		try{
-			PreparedStatement updateUserQuery = db.prepareStatement(dbms.addUser());
+			PreparedStatement updateUserQuery = db.prepareStatement(dbms.updateUser());
 			updateUserQuery.setString(1, user.getPassword());
 			updateUserQuery.setString(2, user.getFirstName());
 			updateUserQuery.setString(3, user.getLastName());
@@ -152,26 +150,7 @@ public class Dao {
 		return connection;
 	}
 	
-	private void confirmSuperAdmin()  {
-		Connection db = getConnection();
-		Statement statement;
-		try {
-			statement = db.createStatement();
-			int rowCount = 0;
-			ResultSet res = statement.executeQuery(dbms.confirmSuperAdmin());
-			while(res.next()) {
-				rowCount++;
-			}
-			if(rowCount < 1){
-				statement.executeUpdate(dbms.insertSuperAdmin());
-			}
-			db.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+	
 	
 	private User readUser(ResultSet result) throws SQLException {
 		User user = new User(result.getString("username"),

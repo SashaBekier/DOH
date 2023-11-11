@@ -33,4 +33,17 @@ public class Validators {
 	public static boolean isOldPassword(String text) {
 		return model.getActiveUser().matchesPassword(text);
 	}
+	
+	public static boolean isPostIdValidAndAvailable(String postIdText) {
+		int postId = -1;
+		try {
+			postId = Integer.parseInt(postIdText);
+			model.getPostById(postId);
+		} catch (NumberFormatException e) {
+			
+		} catch (InvalidPostIdException e) {
+			return true;
+		}
+		return false;
+	}
 }
