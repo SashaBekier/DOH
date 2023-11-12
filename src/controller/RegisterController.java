@@ -2,18 +2,18 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import view.RegisterView;
 
 public class RegisterController implements Controller {
 	private RegisterView register;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public RegisterController(DAHController cont) {
 		control = cont;
 		register = new RegisterView(this);
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 	}
 	@Override
 	public HBox[] getPanes() {

@@ -129,6 +129,10 @@ public class PostsView extends View{
 		
 	}
 	
+	public void setPostIdFilter(int postId) {
+		PostFilter.postIdF = postId;
+	}
+	
 	private void updateSortButton(Button b,int sortBy) {
 		
 		if(activeSort == sortBy) {
@@ -290,7 +294,8 @@ public class PostsView extends View{
 				posts.sort(Comparator.comparing(Post::getId));
 				break;
 			case Post.BY_AUTHOR: 
-				posts.sort(Comparator.comparing(Post::getAuthorId));
+				posts.sort(Comparator.comparing(Post::getAuthorId)
+						.thenComparing(Post::getPostedAt));
 				break;
 			case Post.BY_LIKES:
 				posts.sort(Comparator.comparing(Post::getLikes)
@@ -305,7 +310,8 @@ public class PostsView extends View{
 				
 				break;
 			case Post.BY_PARENT:
-				posts.sort(Comparator.comparing(Post::getParentId));
+				posts.sort(Comparator.comparing(Post::getParentId)
+						.thenComparing(Post::getPostedAt));
 				break;
 		}
 		if(PostFilter.ascending[activeSort] == false) {
@@ -315,7 +321,7 @@ public class PostsView extends View{
 		
 	}
 	
-	private void clearFilters() {
+	public void clearFilters() {
 		for(boolean asc: PostFilter.ascending) {
 			asc = !asc;
 		}

@@ -3,18 +3,18 @@ package controller;
 import dao.InvalidLoginException;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import view.LogInView;
 
 public class LogInController implements Controller {
 	private LogInView logIn;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public LogInController(DAHController cont) {
 		control = cont;
 		logIn = new LogInView(this);
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 	}
 	
 	public HBox[] getPanes() {

@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.GetVipView;
 import view.LogInView;
@@ -10,11 +10,11 @@ import view.LogInView;
 public class GetVipController implements Controller {
 	private GetVipView getVip;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public GetVipController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		getVip = new GetVipView(this);
 		
 	}

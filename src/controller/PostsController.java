@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.Post;
 import model.User;
 import view.PostsView;
@@ -11,11 +11,11 @@ import java.util.List;
 public class PostsController implements Controller {
 	private PostsView posts;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public PostsController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		posts = new PostsView(this);
 		
 	}

@@ -34,10 +34,10 @@ import java.util.Scanner;
  * @version 1.0
  *
  */
-public class DAHManager {
+public class DAHModel {
 	private ArrayList<Post> posts = new ArrayList<>();
 	private User activeUser;
-	private static DAHManager dahManager;
+	private static DAHModel dahModel;
 	private Dao data;
 	/**
 	 * constructor method
@@ -45,7 +45,7 @@ public class DAHManager {
 	 */
 
 	
-	private DAHManager()  {
+	private DAHModel()  {
 		try {
 			data = new Dao(new SQLite());
 			posts = data.getPosts();
@@ -55,11 +55,11 @@ public class DAHManager {
 		
 	}
 	
-	public static DAHManager getManager() {
-		if(dahManager == null) {
-			dahManager = new DAHManager();
+	public static DAHModel getDAHModel() {
+		if(dahModel == null) {
+			dahModel = new DAHModel();
 		}
-		return dahManager;
+		return dahModel;
 	}
 	
 

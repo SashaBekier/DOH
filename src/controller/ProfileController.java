@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.ProfileView;
 import view.LogInView;
@@ -10,11 +10,11 @@ import view.LogInView;
 public class ProfileController implements Controller {
 	private ProfileView profile;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public ProfileController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		profile = new ProfileView(this);
 		
 	}

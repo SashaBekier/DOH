@@ -13,12 +13,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.DAHManager;
+import model.DAHModel;
 import model.Post;
 import model.User;
 
 public class Dao {
-	private DAHManager model;
+	private DAHModel model;
 	private DatabaseManagementSystem dbms;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
@@ -230,7 +230,7 @@ public class Dao {
 	
 	public int[] importPostsFrom(String fileName) throws FileNotFoundException {
 		if(model == null) {
-			model = DAHManager.getManager();
+			model = DAHModel.getDAHModel();
 		}
 		File myFile = new File(fileName);
 		int[] result = new int[2];

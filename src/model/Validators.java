@@ -1,7 +1,7 @@
 package model;
 
 public class Validators {
-	private static DAHManager model = DAHManager.getManager();
+	private static DAHModel model = DAHModel.getDAHModel();
 	
 	public static boolean hasContent(String text) {
 		if(text.length() > 0) return true;

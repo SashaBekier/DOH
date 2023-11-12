@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.PostsView;
 import view.ImportCsvView;
@@ -13,11 +13,11 @@ import view.LogInView;
 public class ImportCsvController implements Controller {
 	private ImportCsvView importCsv;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public ImportCsvController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		importCsv = new ImportCsvView(this);
 		
 	}

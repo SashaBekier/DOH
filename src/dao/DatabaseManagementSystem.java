@@ -18,6 +18,30 @@ public interface DatabaseManagementSystem {
 	
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*SAMPLE IMPLEMENTATION  
  * 
 public class SQLite implements DatabaseManagementSystem {

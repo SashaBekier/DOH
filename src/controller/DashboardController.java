@@ -2,18 +2,18 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.DashboardView;
 
 public class DashboardController implements Controller {
 	private DashboardView dashboard;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public DashboardController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		dashboard = new DashboardView(this);
 	}
 	@Override

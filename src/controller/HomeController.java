@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.HomeView;
 import view.LogInView;
@@ -10,11 +10,11 @@ import view.LogInView;
 public class HomeController implements Controller {
 	private HomeView home;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public HomeController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		home = new HomeView(this);
 		
 	}

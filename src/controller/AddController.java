@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import model.DAHManager;
+import model.DAHModel;
 import model.User;
 import view.AddView;
 
@@ -13,11 +13,11 @@ import view.AddView;
 public class AddController implements Controller {
 	private AddView add;
 	private DAHController control;
-	private DAHManager model;
+	private DAHModel model;
 	
 	public AddController(DAHController cont) {
 		control = cont;
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		add = new AddView(this);
 		
 	}
@@ -43,5 +43,10 @@ public class AddController implements Controller {
 		model.submitPost(postId,content,authorId,likes,shares,dateTime,parent);
 		
 	}
+	public void showPostsView() {
+		control.updateStage("Posts");
+		
+	}
+	
 
 }

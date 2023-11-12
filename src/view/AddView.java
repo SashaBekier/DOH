@@ -74,6 +74,7 @@ public class AddView extends View{
 			control.submitPost( postId.getText(),
 					content.getText(),(String)authorId.getValue(),likes.getText(), shares.getText(),
 					dateTime.getText(), replyTo.getText());
+			control.showPostsView();
 		});
 		
 		container.getChildren().add(form);

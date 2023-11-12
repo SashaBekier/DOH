@@ -6,18 +6,18 @@ import dao.DAOUnavailableException;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.DAHManager;
+import model.DAHModel;
 import view.DAHStage;
 
 public class DAHController {
-	private DAHManager model;
+	private DAHModel model;
 	private HashMap<String, Controller> controllers = new HashMap<String, Controller>();
 	private DAHStage window;
 	private DashboardController dash;
 	
 	public DAHController(Stage primaryStage) {
 		
-		model = DAHManager.getManager();
+		model = DAHModel.getDAHModel();
 		
 		controllers.put("LogIn", new LogInController(this));
 		controllers.put("Register", new RegisterController(this));
@@ -47,4 +47,6 @@ public class DAHController {
 		
 		
 	}
+
+	
 }
