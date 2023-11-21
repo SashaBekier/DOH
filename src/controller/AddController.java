@@ -10,7 +10,7 @@ import view.AddView;
 
 
 
-public class AddController implements Controller {
+public class AddController implements ViewController {
 	private AddView add;
 	private DAHController control;
 	private DAHModel model;

@@ -1,7 +1,7 @@
 package view;
 
 import controller.AddController;
-import controller.Controller;
+import controller.ViewController;
 import controller.HomeController;
 import controller.ImportCsvController;
 import controller.LogInController;
@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class ImportCsvView extends View{
+public class ImportCsvView extends DAHView{
 	private ImportCsvController control;
 
 	public ImportCsvView(ImportCsvController importCsvController) {

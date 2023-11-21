@@ -1,6 +1,6 @@
 package view;
 
-import controller.Controller;
+import controller.ViewController;
 import controller.LogInController;
 import dao.InvalidLoginException;
 import javafx.geometry.Pos;
@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class LogInView extends View{
+public class LogInView extends DAHView{
 	private LogInController control;
 	
 	public LogInView(LogInController control) {

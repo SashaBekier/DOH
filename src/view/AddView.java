@@ -3,7 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import controller.AddController;
-import controller.Controller;
+import controller.ViewController;
 import controller.HomeController;
 import controller.LogInController;
 import controller.PostsController;
@@ -19,7 +19,7 @@ import model.Validators;
 import view.controls.ValidatedButton;
 import view.controls.ValidatedTextField;
 
-public class AddView extends View{
+public class AddView extends DAHView{
 	private AddController control;
 
 	public AddView(AddController addController) {

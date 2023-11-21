@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import model.DAHModel;
 import view.LogInView;
 
-public class LogInController implements Controller {
+public class LogInController implements ViewController {
 	private LogInView logIn;
 	private DAHController control;
 	private DAHModel model;

@@ -2,7 +2,7 @@ package view;
 
 import java.util.ArrayList;
 
-import controller.Controller;
+import controller.ViewController;
 import controller.ProfileController;
 import controller.LogInController;
 import javafx.scene.Node;
@@ -19,7 +19,7 @@ import view.controls.ValidatedButton;
 import view.controls.ValidatedPasswordField;
 import view.controls.ValidatedTextField;
 
-public class ProfileView extends View{
+public class ProfileView extends DAHView{
 	private ProfileController control;
 
 	public ProfileView(ProfileController ProfileController) {

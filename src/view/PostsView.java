@@ -29,7 +29,7 @@ import view.controls.ValidatedButton;
 import view.controls.ValidatedTextField;
 import model.Post;
 
-public class PostsView extends View{
+public class PostsView extends DAHView{
 	private PostsController control;
 	private GridPane postPane;
 	private VBox container;

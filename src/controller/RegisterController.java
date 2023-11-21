@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import model.DAHModel;
 import view.RegisterView;
 
-public class RegisterController implements Controller {
+public class RegisterController implements ViewController {
 	private RegisterView register;
 	private DAHController control;
 	private DAHModel model;

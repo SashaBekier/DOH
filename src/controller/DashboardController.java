@@ -6,7 +6,7 @@ import model.DAHModel;
 import model.User;
 import view.DashboardView;
 
-public class DashboardController implements Controller {
+public class DashboardController implements ViewController {
 	private DashboardView dashboard;
 	private DAHController control;
 	private DAHModel model;

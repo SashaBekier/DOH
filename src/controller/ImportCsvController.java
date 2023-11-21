@@ -10,7 +10,7 @@ import view.PostsView;
 import view.ImportCsvView;
 import view.LogInView;
 
-public class ImportCsvController implements Controller {
+public class ImportCsvController implements ViewController {
 	private ImportCsvView importCsv;
 	private DAHController control;
 	private DAHModel model;

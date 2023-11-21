@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class RegisterView extends View{
+public class RegisterView extends DAHView{
 	private RegisterController control;
 	
 	public RegisterView(RegisterController control) {

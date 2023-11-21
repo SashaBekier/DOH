@@ -13,7 +13,7 @@ package model;
 import java.io.File;
 
 import dao.DAOUnavailableException;
-import dao.Dao;
+import dao.DAHDao;
 import dao.InvalidLoginException;
 import dao.SQLite;
 
@@ -38,7 +38,7 @@ public class DAHModel {
 	private ArrayList<Post> posts = new ArrayList<>();
 	private User activeUser;
 	private static DAHModel dahModel;
-	private Dao data;
+	private DAHDao data;
 	/**
 	 * constructor method
 	 * @throws DAOUnavailableException 
@@ -47,7 +47,7 @@ public class DAHModel {
 	
 	private DAHModel()  {
 		try {
-			data = new Dao(new SQLite());
+			data = new DAHDao(new SQLite());
 			posts = data.getPosts();
 		} catch (DAOUnavailableException e) {
 			e.printStackTrace();

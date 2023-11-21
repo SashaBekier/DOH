@@ -17,12 +17,12 @@ import model.DAHModel;
 import model.Post;
 import model.User;
 
-public class Dao {
+public class DAHDao {
 	private DAHModel model;
 	private DatabaseManagementSystem dbms;
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
 	
-	public Dao(DatabaseManagementSystem db) throws DAOUnavailableException {
+	public DAHDao(DatabaseManagementSystem db) throws DAOUnavailableException {
 		dbms = db;
 		confirmDBStructure();
 	}
@@ -40,14 +40,9 @@ public class Dao {
 		Statement statement;
 		try {
 			statement = db.createStatement();
-			String query = dbms.createUsersTable();
-			statement.execute(query);
-			
-			query = dbms.createUserAliasTable();
-			statement.execute(query);
-			
-			query = dbms.createPostsTable();
-			statement.execute(query);
+			statement.execute(dbms.createUsersTable());
+			statement.execute(dbms.createUserAliasTable());
+			statement.execute(dbms.createPostsTable());
 			
 			confirmSuperAdmin();
 			

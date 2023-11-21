@@ -7,7 +7,7 @@ import model.User;
 import view.GetVipView;
 import view.LogInView;
 
-public class GetVipController implements Controller {
+public class GetVipController implements ViewController {
 	private GetVipView getVip;
 	private DAHController control;
 	private DAHModel model;

@@ -1,13 +1,13 @@
 package view;
 
-import controller.Controller;
+import controller.ViewController;
 import controller.HomeController;
 import controller.LogInController;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class HomeView extends View{
+public class HomeView extends DAHView{
 	private HomeController control;
 
 	public HomeView(HomeController homeController) {

@@ -56,7 +56,7 @@ public class DAHStage {
 		
 	}
 	
-	public void setBottomPane(HBox bottomPane) {
+	private void setBottomPane(HBox bottomPane) {
 		bottomPane.setAlignment(Pos.BOTTOM_CENTER);
 		
 		this.bottomPane = bottomPane;

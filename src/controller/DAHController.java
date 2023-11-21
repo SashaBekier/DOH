@@ -11,7 +11,7 @@ import view.DAHStage;
 
 public class DAHController {
 	private DAHModel model;
-	private HashMap<String, Controller> controllers = new HashMap<String, Controller>();
+	private HashMap<String, ViewController> controllers = new HashMap<String, ViewController>();
 	private DAHStage window;
 	private DashboardController dash;
 	
@@ -22,8 +22,8 @@ public class DAHController {
 		controllers.put("LogIn", new LogInController(this));
 		controllers.put("Register", new RegisterController(this));
 		window = new DAHStage(primaryStage);
-		updateStage("LogIn");
 		
+		updateStage("LogIn");
 	}
 	
 	public void updateStage(String viewController) {
@@ -38,6 +38,8 @@ public class DAHController {
 	public void logInComplete() {
 		dash = new DashboardController(this);
 		
+		controllers.put("LogIn", new LogInController(this));
+		controllers.put("Register", new RegisterController(this));
 		controllers.put("Home", new HomeController(this));
 		controllers.put("Profile", new ProfileController(this));
 		controllers.put("GetVip", new GetVipController(this));

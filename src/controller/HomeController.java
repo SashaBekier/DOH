@@ -7,7 +7,7 @@ import model.User;
 import view.HomeView;
 import view.LogInView;
 
-public class HomeController implements Controller {
+public class HomeController implements ViewController {
 	private HomeView home;
 	private DAHController control;
 	private DAHModel model;

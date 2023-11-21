@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class DashboardView extends View {
+public class DashboardView extends DAHView {
 	private DashboardController control;
 
 	public DashboardView(DashboardController control) {

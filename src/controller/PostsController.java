@@ -8,7 +8,7 @@ import model.User;
 import view.PostsView;
 import java.util.List;
 
-public class PostsController implements Controller {
+public class PostsController implements ViewController {
 	private PostsView posts;
 	private DAHController control;
 	private DAHModel model;
