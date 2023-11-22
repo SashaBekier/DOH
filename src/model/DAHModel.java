@@ -245,4 +245,9 @@ public class DAHModel {
 		posts.remove(post);
 		data.deletePost(post.getId());
 	}
+
+	public void toggleVIP() {
+		activeUser.toggleVIP();
+		data.updateUser(activeUser);
+	}
 }

@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -104,7 +106,19 @@ public class ProfileView extends DAHView{
 			control.updateView();
 		});
 		
-		container.getChildren().add(form);
+		Image vipImage;
+		Button vipButton;
+		
+		if(activeUser.hasVIP()) {
+			vipImage = new Image("assets/vipActive.png");
+			vipButton = new Button("Unsubscribe");
+		} else {
+			vipImage = new Image("assets/vipAvailable.png");
+			vipButton = new Button("Subscribe");
+		}
+		vipButton.setOnAction(e -> control.goVip());
+		
+		container.getChildren().addAll(form,new ImageView(vipImage),vipButton);
 		middlePane.getChildren().add(container);
 	}
 

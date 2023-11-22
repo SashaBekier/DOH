@@ -29,5 +29,14 @@ public class GetVipController implements ViewController {
 	public String getActiveUserDisplayName() {
 		return model.getActiveUserDisplayName();
 	}
+	public boolean userHasVIP() {
+		return model.getActiveUser().hasVIP();
+	}
+
+	public void toggleVIP() {
+		model.toggleVIP();
+		control.refreshVIP();
+		control.updateStage("Profile");
+	}
 
 }

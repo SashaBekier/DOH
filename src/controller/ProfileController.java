@@ -41,5 +41,8 @@ public class ProfileController implements ViewController {
 		profile = new ProfileView(this);
 		control.updateStage("Profile");
 	}
+	public void goVip() {
+		control.updateStage("GetVip");
+	}
 
 }

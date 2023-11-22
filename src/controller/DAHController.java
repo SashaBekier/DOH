@@ -50,5 +50,12 @@ public class DAHController {
 		
 	}
 
+	public void refreshVIP() {
+		dash = new DashboardController(this);
+		controllers.put("Profile", new ProfileController(this));
+		controllers.put("GetVip", new GetVipController(this));
+		
+	}
+
 	
 }

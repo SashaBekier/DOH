@@ -3,9 +3,13 @@ package view;
 import controller.ViewController;
 import controller.GetVipController;
 import controller.LogInController;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class GetVipView extends DAHView{
 	private GetVipController control;
@@ -18,9 +22,20 @@ public class GetVipView extends DAHView{
 
 	private void drawMiddle() {
 		middlePane = new HBox();
-		String userDisplayName = control.getActiveUserDisplayName();
-		Label greeting = new Label("GetVip Of " + userDisplayName);
-		middlePane.getChildren().add(greeting);
+		VBox container = new VBox();
+		Image banner;
+		Button toggleVIP;
+		if(control.userHasVIP()) {
+			banner = new Image("assets/noVIP.png");
+			toggleVIP = new Button("Unsubscribe");
+		} else {
+			banner = new Image("assets/getVIP.png");
+			toggleVIP = new Button("Yes!");
+		}
+		
+		container.getChildren().addAll(new ImageView(banner),toggleVIP);
+		toggleVIP.setOnAction(e -> control.toggleVIP());
+		middlePane.getChildren().add(container);
 		
 	}
 
