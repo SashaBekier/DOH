@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Validators;
+import view.controls.DateTimePicker;
 import view.controls.ValidatedButton;
 import view.controls.ValidatedTextField;
 
@@ -54,7 +55,8 @@ public class AddView extends DAHView{
 		TextField likes = new TextField();
 		TextField shares = new TextField();
 		TextField replyTo = new TextField();
-		TextField dateTime = new TextField();
+		DateTimePicker dateTimePicker = new DateTimePicker();
+		HBox dateTime = dateTimePicker.getControl();
 		form.add(new Label("Post ID:"),0,1);
 		form.add(postId, 1, 1);
 		form.add(new Label("Post Content:"),0,2);
@@ -73,7 +75,7 @@ public class AddView extends DAHView{
 		submit.setOnAction(e -> {
 			control.submitPost( postId.getText(),
 					content.getText(),(String)authorId.getValue(),likes.getText(), shares.getText(),
-					dateTime.getText(), replyTo.getText());
+					dateTimePicker.getDateTime().toString(), replyTo.getText());
 			control.showPostsView();
 		});
 		
