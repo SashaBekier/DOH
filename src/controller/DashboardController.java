@@ -30,6 +30,7 @@ public class DashboardController implements ViewController {
 		control.updateStage("Add");
 	}
 	public void loadImportCsv() {
+		control.refreshImport();
 		control.updateStage("ImportCsv");
 	}
 	public void logOut() {

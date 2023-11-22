@@ -1,9 +1,12 @@
 package controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.DAHModel;
 import model.User;
 import view.PostsView;
@@ -39,6 +42,21 @@ public class ImportCsvController implements ViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	public void importCsv(File file) {
+		try {
+			int[] result = model.importPostsFrom(file);
+			importCsv = new ImportCsvView(this);
+			importCsv.showImportResult(result[0], result[1]);
+			control.updateStage("ImportCsv");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	public Stage getStage() {
+		return control.getStage();
 	}
 
 }

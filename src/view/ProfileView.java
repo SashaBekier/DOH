@@ -34,8 +34,6 @@ public class ProfileView extends DAHView{
 		middlePane = new HBox();
 		VBox container = new VBox();
 		User activeUser = control.getActiveUser();
-		Label greeting = new Label("Profile Of " + activeUser.getDisplayName());
-		container.getChildren().add(greeting);
 		
 		GridPane form = new GridPane();
 		form.add(new Label("Username"), 0, 0);

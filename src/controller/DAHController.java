@@ -56,6 +56,14 @@ public class DAHController {
 		controllers.put("GetVip", new GetVipController(this));
 		
 	}
+	
+	public void refreshImport() {
+		controllers.put("ImportCsv", new ImportCsvController(this));
+	}
+
+	public Stage getStage() {
+		return window.getStage();
+	}
 
 	
 }

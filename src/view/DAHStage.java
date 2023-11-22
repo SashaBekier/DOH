@@ -62,6 +62,10 @@ public class DAHStage {
 		this.bottomPane = bottomPane;
 		container.getChildren().set(2,bottomPane);
 	}
+
+	public Stage getStage() {
+		return primaryStage;
+	}
 	
 
 }

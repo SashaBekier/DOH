@@ -13,6 +13,7 @@ package model;
 import java.io.File;
 
 import dao.DAOUnavailableException;
+import dao.CsvDao;
 import dao.DAHDao;
 import dao.InvalidLoginException;
 import dao.SQLite;
@@ -222,6 +223,10 @@ public class DAHModel {
 
 	public void importPostsFrom(String file) throws FileNotFoundException {
 		data.importPostsFrom(file);
+	}
+	
+	public int[] importPostsFrom(File file) throws FileNotFoundException {
+		return CsvDao.importPostsFrom(file);
 	}
 
 	public void updateActiveUserPassword(String text) {
