@@ -100,7 +100,7 @@ public class PostsView extends DAHView{
 				updatePostPane();
 				
 			});
-				
+			
 		
 		filters.getChildren().addAll(
 				new Label("Filter by - Post ID: "), postIdFilter,
@@ -110,14 +110,17 @@ public class PostsView extends DAHView{
 				new Label(" and: "), toDate,
 				submit);
 		
-		
+		if(control.getActiveUser().hasVIP()) {
+			Button export = new Button("Export Posts");
+			export.setOnAction(e->{
+				control.callExportCsvView(posts);
+			});
+			filters.getChildren().add(export);
+		}
 		
 		container.getChildren().add(filters);
 		
-		Button export = new Button("Export Posts to CSV");
-		export.setOnAction(e->{
-			control.callExportCsvView(posts);
-		});
+		
 		
 		middlePane.getChildren().add(container);
 		

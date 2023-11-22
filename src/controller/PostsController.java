@@ -2,11 +2,16 @@ package controller;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import model.DAHModel;
 import model.Post;
 import model.User;
 import view.PostsView;
+
+import java.io.File;
 import java.util.List;
+
+import dao.CsvDao;
 
 public class PostsController implements ViewController {
 	private PostsView posts;
@@ -35,7 +40,12 @@ public class PostsController implements ViewController {
 		return model.getPosts();
 	}
 	public void callExportCsvView(List<Post> exportPosts) {
-		// TODO Auto-generated method stub
+		FileChooser fileChooser = new FileChooser();
+		File saveFile = fileChooser.showSaveDialog(control.getStage());
+		if(saveFile != null) {
+			CsvDao.exportPosts(exportPosts, saveFile);
+		}
+		
 		
 	}
 	public User getActiveUser() {
