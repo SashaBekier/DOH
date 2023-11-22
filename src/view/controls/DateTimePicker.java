@@ -2,6 +2,7 @@ package view.controls;
 
 import java.sql.Time;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -39,14 +40,16 @@ public class DateTimePicker {
 		hours.setEditable(true);
 	}
 	
-	public DateTimePicker(int hours, int minutes) {
+	public DateTimePicker(LocalDateTime dateTime) {
 		this();
-		this.hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,hours));
+		this.hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,dateTime.getHour()));
 		this.hours.getValueFactory().setWrapAround(true);
-		this.mins.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,minutes));
+		this.mins.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,dateTime.getMinute()));
 		this.mins.getValueFactory().setWrapAround(true);
-		
+		date.setValue(dateTime.toLocalDate());
 	}
+	
+	
 	
 	public HBox getControl() {
 		return container;

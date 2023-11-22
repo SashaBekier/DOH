@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import controller.AddController;
@@ -52,10 +53,13 @@ public class AddView extends DAHView{
 		form.add(authorId, 1, 0);
 		ValidatedTextField postId = new ValidatedTextField(s -> Validators.isPostIdValidAndAvailable(s), submit);
 		ValidatedTextField content = new ValidatedTextField(s -> Validators.hasContent(s),submit);
-		TextField likes = new TextField();
-		TextField shares = new TextField();
-		TextField replyTo = new TextField();
-		DateTimePicker dateTimePicker = new DateTimePicker();
+		ValidatedTextField likes = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
+		likes.setText("0");
+		ValidatedTextField shares = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
+		shares.setText("0");
+		ValidatedTextField replyTo = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
+		replyTo.setText("0");
+		DateTimePicker dateTimePicker = new DateTimePicker(LocalDateTime.now());
 		HBox dateTime = dateTimePicker.getControl();
 		form.add(new Label("Post ID:"),0,1);
 		form.add(postId, 1, 1);

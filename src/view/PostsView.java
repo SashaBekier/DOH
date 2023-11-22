@@ -67,10 +67,10 @@ public class PostsView extends DAHView{
 		CheckBox showReplies = new CheckBox();
 		showReplies.setSelected(true);
 		
-		DateTimePicker fromDateTimePicker = new DateTimePicker(0, 0);
+		DateTimePicker fromDateTimePicker = new DateTimePicker();
 		HBox fromDate = fromDateTimePicker.getControl();
 		
-		DateTimePicker toDateTimePicker = new DateTimePicker(23, 59);
+		DateTimePicker toDateTimePicker = new DateTimePicker();
 		HBox toDate = toDateTimePicker.getControl();
 		
 		submit.setOnAction(e -> {
