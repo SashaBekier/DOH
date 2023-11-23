@@ -50,7 +50,7 @@ public class ProfileView extends DAHView{
 		Label oldPasswordL = new Label("Old Password");
 		form.add(oldPasswordL, 0, 5);
 		resetPasswordNodes.add(oldPasswordL);
-		
+		 
 		ValidatedPasswordField oldPasswordF = new ValidatedPasswordField(s -> Validators.isOldPassword(s),resetPassword);
 		form.add(oldPasswordF, 1, 5);
 		resetPasswordNodes.add(oldPasswordF);

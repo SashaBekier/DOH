@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import controller.PostsController;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -54,7 +56,7 @@ public class PostsView extends DAHView{
 	private void drawMiddle() {
 		middlePane = new HBox();
 		container = new VBox();
-		HBox filters = new HBox();
+		FlowPane filters = new FlowPane();
 		Button submit = new Button("Apply");
 		
 		
@@ -100,7 +102,7 @@ public class PostsView extends DAHView{
 				updatePostPane();
 				
 			});
-			
+		
 		
 		filters.getChildren().addAll(
 				new Label("Filter by - Post ID: "), postIdFilter,
@@ -111,11 +113,15 @@ public class PostsView extends DAHView{
 				submit);
 		
 		if(control.getActiveUser().hasVIP()) {
+			Button showPie = new Button("Show Pie Chart");
+			showPie.setOnAction(e -> {
+				new PostPieChart(posts);
+			});
 			Button export = new Button("Export Posts");
 			export.setOnAction(e->{
 				control.callExportCsvView(posts);
 			});
-			filters.getChildren().add(export);
+			filters.getChildren().addAll(export, showPie);
 		}
 		
 		container.getChildren().add(filters);
@@ -129,12 +135,13 @@ public class PostsView extends DAHView{
 		
 		
 		
-		
 	}
 	
 	public void setPostIdFilter(int postId) {
 		PostFilter.postIdF = postId;
 	}
+	
+	
 	
 	private void updateSortButton(Button b,int sortBy) {
 		
