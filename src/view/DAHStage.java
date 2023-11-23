@@ -8,6 +8,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import view.controls.DAHStyles;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
@@ -28,7 +29,7 @@ public class DAHStage {
 			container.getChildren().add(bottomPane);
 			setBottomPane(Footer.getFooter());
 			
-			Scene scene = new Scene(container,800,600);
+			Scene scene = new Scene(container,DAHStyles.STAGE_WIDTH,DAHStyles.STAGE_HEIGHT);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			container.prefWidthProperty().bind(primaryStage.widthProperty());

@@ -3,6 +3,7 @@ package view;
 import controller.ViewController;
 import controller.LogInController;
 import dao.InvalidLoginException;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,11 +30,7 @@ public class LogInView extends DAHView{
 		this.control = control;
 		drawTop();
 		drawMiddle();
-		
 	}
-	
-	
-	
 
 	private void drawMiddle() {
 		middlePane = new HBox();
@@ -42,25 +39,32 @@ public class LogInView extends DAHView{
 		VBox container = new VBox(4);
 		layout.setCenter(container);
 		
-		layout.setTop(DAHStyles.verticalSpacer(50));
-		Button formSubmitted = new Button("Log In");
-		formSubmitted.setDefaultButton(true);
-		GridPane formFields = new GridPane(2,2);
+		layout.setTop(DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 5));
+		
+		GridPane formFields = new GridPane();
+		formFields.setVgap(5);
 		formFields.add(new Label("Username: "),0,0);
 		TextField usernameSubmitted = new TextField();
 		formFields.add(usernameSubmitted, 1, 0);
+		formFields.setColumnSpan(usernameSubmitted, 2);
 		formFields.add(new Label("Password: "),0,1);
 		TextField passwordSubmitted = new PasswordField();
 		formFields.add(passwordSubmitted,1,1);
-		container.getChildren().add(formFields);
-		HBox form = new HBox(3);
-		Label register = new Label("Register");
-		form.getChildren().add(register);
-		form.getChildren().add(new Label("Forgot Password"));
+		formFields.setColumnSpan(passwordSubmitted, 2);
+		Label register = new Label("Register New Account");
+		register.setTextFill(Color.BLUE);
+		register.setUnderline(true);
+		formFields.add(register,0,2);
+		formFields.setColumnSpan(register, 2);
+		Button formSubmitted = new Button("Log In");
+		formSubmitted.setDefaultButton(true);
+		formFields.add(formSubmitted, 2, 2);
+		formFields.setHalignment(formSubmitted, HPos.RIGHT);
 		
-		form.getChildren().add(formSubmitted);
-		container.getChildren().add(form);
+		container.getChildren().add(formFields);
+		
 		Label warning = new Label();
+		warning.setTextFill(Color.RED);
 		container.getChildren().add(warning);
 		formSubmitted.setOnAction(e -> 
 			{
