@@ -28,18 +28,19 @@ public class DAHStage {
 			container.getChildren().add(bottomPane);
 			setBottomPane(Footer.getFooter());
 			
-			Scene scene = new Scene(container,1200,400);
+			Scene scene = new Scene(container,800,600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			container.prefWidthProperty().bind(primaryStage.widthProperty());
 			container.prefHeightProperty().bind(primaryStage.heightProperty());
 			bottomPane.prefHeightProperty().bind(container.heightProperty());
 			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		
+		this.primaryStage.setTitle("Data Analytics Hub");
 
 	}
 	

@@ -54,11 +54,11 @@ public class AddView extends DAHView{
 		ValidatedTextField postId = new ValidatedTextField(s -> Validators.isPostIdValidAndAvailable(s), submit);
 		ValidatedTextField content = new ValidatedTextField(s -> Validators.hasContent(s),submit);
 		ValidatedTextField likes = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
-		likes.setText("0");
+		likes.setValidatedText("0");
 		ValidatedTextField shares = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
-		shares.setText("0");
+		shares.setValidatedText("0");
 		ValidatedTextField replyTo = new ValidatedTextField(s -> Validators.isIntBetween(0, Integer.MAX_VALUE, s),submit);
-		replyTo.setText("0");
+		replyTo.setValidatedText("0");
 		DateTimePicker dateTimePicker = new DateTimePicker(LocalDateTime.now());
 		HBox dateTime = dateTimePicker.getControl();
 		form.add(new Label("Post ID:"),0,1);

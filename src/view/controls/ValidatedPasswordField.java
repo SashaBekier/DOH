@@ -4,6 +4,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class ValidatedPasswordField extends PasswordField implements ValidatedControl {
@@ -22,6 +23,7 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 		this.setOnKeyTyped(e -> {
 			validate();
 		});
+		validate();
 	}
 	
 	public void setValidatedText(String text) {
@@ -50,14 +52,14 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 	
 	private void setInvalid() {
 		setBackground(new Background(new BackgroundFill(
-				Color.LIGHTPINK,null,null)));
+				Color.LIGHTPINK,new CornerRadii(5),null)));
 		if(valid == true && registeredButton != null) registeredButton.takeValid();
 		valid = false;
 	}
 	
 	private void setValid() {
 		setBackground(new Background(new BackgroundFill(
-				Color.LIGHTGREEN,null,null)));
+				Color.LIGHTGREEN,new CornerRadii(5),null)));
 		valid = true;
 		if(registeredButton != null) registeredButton.addValid();
 	}

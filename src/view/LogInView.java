@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import view.controls.DAHStyles;
 
 public class LogInView extends DAHView{
 	private LogInController control;
@@ -35,9 +37,14 @@ public class LogInView extends DAHView{
 
 	private void drawMiddle() {
 		middlePane = new HBox();
+		
+		BorderPane layout = new BorderPane();
 		VBox container = new VBox(4);
-		middlePane.getChildren().add(container);
-		container.getChildren().add(new Label("Log In"));
+		layout.setCenter(container);
+		
+		layout.setTop(DAHStyles.verticalSpacer(50));
+		Button formSubmitted = new Button("Log In");
+		formSubmitted.setDefaultButton(true);
 		GridPane formFields = new GridPane(2,2);
 		formFields.add(new Label("Username: "),0,0);
 		TextField usernameSubmitted = new TextField();
@@ -46,13 +53,13 @@ public class LogInView extends DAHView{
 		TextField passwordSubmitted = new PasswordField();
 		formFields.add(passwordSubmitted,1,1);
 		container.getChildren().add(formFields);
-		HBox formSubmit = new HBox(3);
+		HBox form = new HBox(3);
 		Label register = new Label("Register");
-		formSubmit.getChildren().add(register);
-		formSubmit.getChildren().add(new Label("Forgot Password"));
-		Button formSubmitted = new Button("Log In");
-		formSubmit.getChildren().add(formSubmitted);
-		container.getChildren().add(formSubmit);
+		form.getChildren().add(register);
+		form.getChildren().add(new Label("Forgot Password"));
+		
+		form.getChildren().add(formSubmitted);
+		container.getChildren().add(form);
 		Label warning = new Label();
 		container.getChildren().add(warning);
 		formSubmitted.setOnAction(e -> 
@@ -65,9 +72,12 @@ public class LogInView extends DAHView{
 				}
 			});
 		
-		register.setOnMouseClicked( e -> {
-			control.callRegisterView();}
-			);
+		register.setOnMouseClicked( e -> 
+			{
+				control.callRegisterView();
+			});
+		middlePane.getChildren().add(layout);
+		
 	}
 	
 	private void drawTop() {
