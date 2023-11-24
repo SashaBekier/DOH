@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import javafx.scene.control.Button;
+
 /**
  * The Post class is a data class to used to define the post data required by
  * the app. All Post attributes are declared final as they will not need to be
@@ -33,6 +35,7 @@ public class Post {
 	public static final int BY_SHARES = 3;
 	public static final int BY_DATE = 4;
 	public static final int BY_PARENT = 5;
+	public static final int BY_CONTENT = 6;
 	
 	
 	
@@ -220,6 +223,8 @@ public class Post {
 	}
 	public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter
 			.ofPattern("dd/MM/yyyy HH:mm");
+
+	
 
 	/**
 	 * takes a String of one of the following formats: "dd/MM/yyyy HH:mm",

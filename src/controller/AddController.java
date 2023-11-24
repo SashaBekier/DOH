@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import model.DAHModel;
 import model.User;
 import view.AddView;
+import view.PostFilter;
 
 
 
@@ -45,7 +46,6 @@ public class AddController implements ViewController {
 	}
 	public void showPostsView() {
 		control.updateStage("Posts");
-		
 	}
 	
 

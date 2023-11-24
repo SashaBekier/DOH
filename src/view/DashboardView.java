@@ -19,7 +19,7 @@ public class DashboardView extends DAHView {
 	
 	private void drawTop() {
 		topPane = new HBox(5);
-		
+		topPane.setPadding(new Insets(5));
 		
 		Button profileB = new DashButton("My Profile","assets/profile.png" );
 		Button postsB = new DashButton("View Posts","assets/posts.png");
@@ -28,12 +28,10 @@ public class DashboardView extends DAHView {
 		Button logOutB = new DashButton("Log Out","assets/logout.png");
 		HBox.setMargin(logOutB,new Insets(0,5,0,5));
 		Button getVipB = new DashButton("Get VIP","assets/getVIPButton.png");
-		Region leftR = new Region();
-		HBox.setHgrow(leftR, Priority.ALWAYS);
 		Region rightR = new Region();
 		HBox.setHgrow(rightR, Priority.ALWAYS);
 		
-		topPane.getChildren().addAll(leftR,profileB,postsB, addB,importB, getVipB,rightR, logOutB);
+		topPane.getChildren().addAll(profileB,postsB, addB,importB, getVipB,rightR, logOutB);
 		
 		profileB.setOnAction(e -> control.loadProfile());
 		postsB.setOnAction(e -> control.loadPosts());

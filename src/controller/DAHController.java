@@ -27,8 +27,9 @@ public class DAHController {
 	}
 	
 	public void updateStage(String viewController) {
-		window.setTopPane(controllers.get(viewController).getPanes()[0]);
-		window.setMiddlePane(controllers.get(viewController).getPanes()[1]);
+		HBox[] panes = controllers.get(viewController).getPanes();
+		window.setTopPane(panes[0]);
+		window.setMiddlePane(panes[1]);
 	}
 
 	public HBox getDashboard() {
@@ -64,6 +65,8 @@ public class DAHController {
 	public Stage getStage() {
 		return window.getStage();
 	}
+
+	
 
 	
 }

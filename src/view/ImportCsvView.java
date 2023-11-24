@@ -8,12 +8,14 @@ import controller.HomeController;
 import controller.ImportCsvController;
 import controller.LogInController;
 import controller.PostsController;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import view.controls.DAHStyles;
 
 public class ImportCsvView extends DAHView{
 	private ImportCsvController control;
@@ -30,10 +32,12 @@ public class ImportCsvView extends DAHView{
 		VBox container = new VBox();
 		
 		Button importB = new Button("Browse for Import CSV");
+		importB.setMinSize(300, 200);
 		Button defaultB = new Button("Import Default CSV");
 		
-		container.getChildren().addAll(importResult, importB, defaultB);
-		
+		container.getChildren().addAll(DAHStyles.verticalSpacer(DAHStyles.MIN_STAGE_HEIGHT/6),importResult, importB, defaultB);
+		container.setSpacing(10);
+		container.setAlignment(Pos.CENTER);
 		middlePane.getChildren().add(container);
 		
 		defaultB.setOnAction(e->{

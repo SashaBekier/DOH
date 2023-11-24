@@ -35,6 +35,7 @@ public class DAHStage {
 			container.prefWidthProperty().bind(primaryStage.widthProperty());
 			container.prefHeightProperty().bind(primaryStage.heightProperty());
 			bottomPane.prefHeightProperty().bind(container.heightProperty());
+			container.setBackground(DAHStyles.WINDOW_BG);
 			
 			
 		} catch(Exception e) {
@@ -42,7 +43,8 @@ public class DAHStage {
 		}
 		
 		this.primaryStage.setTitle("Data Analytics Hub");
-
+		this.primaryStage.setMinWidth(DAHStyles.MIN_STAGE_WIDTH);
+		this.primaryStage.setMinHeight(DAHStyles.MIN_STAGE_HEIGHT);
 	}
 	
 	public void setTopPane(HBox topPane) {

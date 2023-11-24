@@ -2,20 +2,14 @@ package view;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import controller.AddController;
-import controller.ViewController;
-import controller.HomeController;
-import controller.LogInController;
-import controller.PostsController;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.Validators;
 import view.controls.DateTimePicker;
 import view.controls.ValidatedButton;
@@ -33,14 +27,20 @@ public class AddView extends DAHView{
 	private void drawMiddle() {
 		middlePane = new HBox();
 		VBox container = new VBox();
-		Label heading = new Label("Add New Post");
+		
+		
+		
+		Label heading = new Label("New Post");
+		heading.setFont(new Font(16));
+		VBox.setMargin(heading, new Insets(20));
 		container.getChildren().add(heading);
 		
 		GridPane form = new GridPane(2,8);
-		
+		form.setVgap(5);
+		form.setHgap(5);
 		ValidatedButton submit = new ValidatedButton("Add Post");
 		
-		ComboBox authorId = new ComboBox();
+		ComboBox<String> authorId = new ComboBox<String>();
 		ArrayList<String> alias = control.getAuthorIds();
 		for(String author: alias) {
 			authorId.getItems().add(author);
@@ -80,18 +80,17 @@ public class AddView extends DAHView{
 			control.submitPost( postId.getText(),
 					content.getText(),(String)authorId.getValue(),likes.getText(), shares.getText(),
 					dateTimePicker.getDateTime().toString(), replyTo.getText());
+			PostFilter.clearFilters();
+			PostFilter.postIdF = Integer.parseInt(postId.getText());
 			control.showPostsView();
 		});
 		
 		container.getChildren().add(form);
 		middlePane.getChildren().add(container);
-		
-		
 	}
 
 	private void drawTop() {
 		topPane = control.getDashboard();
-		
 	}
 	
 }

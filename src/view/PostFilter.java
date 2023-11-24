@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class PostFilter {
 	
-		static boolean[] ascending = {true, true, true, true, true, true};
+		static boolean[] ascending = {true, true, true, true, true, true, true};
 		static Integer postIdF = null;
 		static String authorIdF = null;
 		static boolean showRepliesF = true;
