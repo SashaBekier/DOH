@@ -136,6 +136,10 @@ public class DAHModel {
 		}
 		throw new InvalidPostIdException();
 	}
+	
+	public boolean usernameExists(String username) {
+		return data.usernameExists(username);
+	}
 
 	/**
 	 * sorts posts by id ascending and then returns them as an ArrayList

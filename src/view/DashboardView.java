@@ -3,20 +3,9 @@ package view;
 import controller.DashboardController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import view.controls.DashButton;
 
 public class DashboardView extends DAHView {
@@ -29,28 +18,34 @@ public class DashboardView extends DAHView {
 	}
 	
 	private void drawTop() {
-		topPane = new HBox(8);
+		topPane = new HBox(5);
+		
+		
 		Button profileB = new DashButton("My Profile","assets/profile.png" );
 		Button postsB = new DashButton("View Posts","assets/posts.png");
 		Button addB = new DashButton("Add Post","assets/add.png");
 		Button importB = new DashButton("Import CSV","assets/import.png");
 		Button logOutB = new DashButton("Log Out","assets/logout.png");
-		Button getVipB = new Button("Get VIP");
-		logOutB.setTranslateX(250);
+		HBox.setMargin(logOutB,new Insets(0,5,0,5));
+		Button getVipB = new DashButton("Get VIP","assets/getVIPButton.png");
+		Region leftR = new Region();
+		HBox.setHgrow(leftR, Priority.ALWAYS);
+		Region rightR = new Region();
+		HBox.setHgrow(rightR, Priority.ALWAYS);
 		
-		topPane.getChildren().addAll(profileB,postsB, addB,importB, getVipB, logOutB);
+		topPane.getChildren().addAll(leftR,profileB,postsB, addB,importB, getVipB,rightR, logOutB);
 		
 		profileB.setOnAction(e -> control.loadProfile());
 		postsB.setOnAction(e -> control.loadPosts());
 		addB.setOnAction(e -> control.loadAdd());
+		importB.setOnAction(e -> control.loadImportCsv());
+		getVipB.setOnAction(e -> control.loadGetVip());
 		logOutB.setOnAction(e -> control.logOut());
 		
 		if(control.userHasVip()) {
-			importB.setOnAction(e -> control.loadImportCsv());
 			topPane.getChildren().remove(getVipB);
 		} else {
-			getVipB.setOnAction(e -> control.loadGetVip());
-			importB.setOnAction(e -> control.loadGetVip());
+			topPane.getChildren().remove(importB);
 		}
 		
 	}

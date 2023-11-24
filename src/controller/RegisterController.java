@@ -26,5 +26,8 @@ public class RegisterController implements ViewController {
 		control.updateStage("Home");
 		
 	}
+	public void loadLogIn() {
+		control.updateStage("LogIn");
+	}
 
 }

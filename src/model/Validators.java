@@ -46,4 +46,9 @@ public class Validators {
 		}
 		return false;
 	}
+	
+	public static boolean isUsernameAvailable(String text) {
+		if(text.length()<1) return false;
+		return !model.usernameExists(text);
+	}
 }

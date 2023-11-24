@@ -1,5 +1,9 @@
 package view.controls;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -8,6 +12,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class DAHStyles {
 	public static final Background BLUE_BG = new Background(new BackgroundFill(Color.ALICEBLUE, new CornerRadii(5.0) , null));
@@ -27,4 +32,6 @@ public class DAHStyles {
 		pane.setMinWidth(size);
 		return pane;
 	}
+	
+
 }

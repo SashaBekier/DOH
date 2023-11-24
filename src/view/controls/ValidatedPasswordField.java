@@ -16,6 +16,7 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 	public void registerButton(ValidatedButton button) {
 		registeredButton = button;
 		button.addTarget();
+		if(valid) registeredButton.addValid();
 	}
 
 	public ValidatedPasswordField(TextValidator validator) {

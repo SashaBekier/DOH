@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import view.controls.DAHStyles;
 
 public class Banner {
 	
@@ -21,14 +22,15 @@ public class Banner {
 		banner.setBackground(new Background(new BackgroundFill(
 				Color.DODGERBLUE,null,null)));
 		
-		banner.setMinHeight(50);
+		banner.setMinHeight(100);
 		banner.setAlignment(Pos.CENTER);
 		banner.prefWidthProperty().bind(container.widthProperty());
 		
 		Text bannerText = new Text("Data Analytics Hub");
 		bannerText.setStroke(Color.ALICEBLUE);
 		bannerText.setFill(Color.ALICEBLUE);
-		bannerText.setFont(new Font(24));
+		
+		bannerText.setFont(new Font(36));
 		
 		banner.getChildren().add(bannerText);
 		container.getChildren().add(banner);

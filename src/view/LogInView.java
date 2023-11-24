@@ -39,27 +39,27 @@ public class LogInView extends DAHView{
 		VBox container = new VBox(4);
 		layout.setCenter(container);
 		
-		layout.setTop(DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 5));
+		layout.setTop(DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 6));
 		
 		GridPane formFields = new GridPane();
 		formFields.setVgap(5);
 		formFields.add(new Label("Username: "),0,0);
 		TextField usernameSubmitted = new TextField();
 		formFields.add(usernameSubmitted, 1, 0);
-		formFields.setColumnSpan(usernameSubmitted, 2);
+		GridPane.setColumnSpan(usernameSubmitted, 2);
 		formFields.add(new Label("Password: "),0,1);
 		TextField passwordSubmitted = new PasswordField();
 		formFields.add(passwordSubmitted,1,1);
-		formFields.setColumnSpan(passwordSubmitted, 2);
+		GridPane.setColumnSpan(passwordSubmitted, 2);
 		Label register = new Label("Register New Account");
 		register.setTextFill(Color.BLUE);
 		register.setUnderline(true);
 		formFields.add(register,0,2);
-		formFields.setColumnSpan(register, 2);
+		GridPane.setColumnSpan(register, 2);
 		Button formSubmitted = new Button("Log In");
 		formSubmitted.setDefaultButton(true);
 		formFields.add(formSubmitted, 2, 2);
-		formFields.setHalignment(formSubmitted, HPos.RIGHT);
+		GridPane.setHalignment(formSubmitted, HPos.RIGHT);
 		
 		container.getChildren().add(formFields);
 		
@@ -76,10 +76,7 @@ public class LogInView extends DAHView{
 				}
 			});
 		
-		register.setOnMouseClicked( e -> 
-			{
-				control.callRegisterView();
-			});
+		register.setOnMouseClicked( e -> control.callRegisterView());
 		middlePane.getChildren().add(layout);
 		
 	}
