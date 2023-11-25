@@ -39,10 +39,10 @@ public class ProfileController implements ViewController {
 	
 	public void updateView() {
 		profile = new ProfileView(this);
-		control.updateStage(DAHController.PROFILE);
+		control.updateStage(DAHScreen.PROFILE);
 	}
 	public void goVip() {
-		control.updateStage(DAHController.GET_VIP);
+		control.updateStage(DAHScreen.GET_VIP);
 	}
 
 }

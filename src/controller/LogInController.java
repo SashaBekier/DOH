@@ -24,10 +24,10 @@ public class LogInController implements ViewController {
 	public void submitLogin(String username, String password) throws InvalidLoginException {
 			model.validateUser(username, password);
 			control.logInComplete();
-			control.updateStage(DAHController.HOME);
+			control.updateStage(DAHScreen.HOME);
 	}
 
 	public void callRegisterView() {
-		control.updateStage(DAHController.REGISTER);
+		control.updateStage(DAHScreen.REGISTER);
 	}
 }
