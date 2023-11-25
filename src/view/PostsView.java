@@ -1,6 +1,8 @@
 package view;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -176,6 +178,7 @@ public class PostsView extends DAHView{
 			initPostPane();
 		}
 		
+		
 		if(PostFilter.postIdF != null && !PostFilter.postIdF.toString().equals(postIdFilter.getText())) {
 			postIdFilter.setText(PostFilter.postIdF.toString());
 			submit.fire();
@@ -191,15 +194,19 @@ public class PostsView extends DAHView{
 			
 			postPane.add(new Label(String.valueOf(post.getId())), 0, row);
 			postPane.add(new Label(post.getAuthorId()), 1, row);
-			postPane.add(new Label(post.getContent()), 2, row);
+			Label content = new Label(post.getContent());
+			content.setWrapText(true);
+			
+			postPane.add(content, 2, row);
 			postPane.add(new Label(String.valueOf(post.getLikes())), 3, row);
 			postPane.add(new Label(String.valueOf(post.getShares())), 4, row);
 			postPane.add(new Label(String.valueOf(post.getParentId())), 5, row);
-			postPane.add(new Label(String.valueOf(post.getPostedAt())), 6, row);
+			postPane.add(new Label(post.getPostedAt().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT))), 6, row);
 			if(control.getActiveUser().hasAdmin() || post.getAuthorId().equals(control.getActiveUser().getUserName())) {
-				deleteButtons[row] = new Button("Delete Post");
+				deleteButtons[row] = new Button("X");
 				deleteButtons[row].setBackground(DAHStyles.INVALID_BG);
 				deleteButtons[row].setBorder(DAHStyles.INVALID_BORDER);
+				deleteButtons[row].setMinWidth(50);
 				deleteButtons[row].setOnAction(e -> {
 					control.deletePost(post);
 					posts.remove(post);
@@ -228,7 +235,9 @@ public class PostsView extends DAHView{
 		button.setGraphic(bArrow);
 		
 		button.setContentDisplay(ContentDisplay.RIGHT);
+		button.setMinWidth(70);
 		button.setMaxWidth(Double.MAX_VALUE);
+		
 		button.setOnAction(e -> {
 			activeSort = sortBy;
 			PostFilter.ascending[activeSort] = !PostFilter.ascending[activeSort];
@@ -243,16 +252,19 @@ public class PostsView extends DAHView{
 	private void initPostPane() {
 		posts = filterPosts();
 		ScrollPane wrapper = new ScrollPane();
+		//container.getChildren().remove(wrapper);
 		wrapper.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		wrapper.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		wrapper.setPrefHeight(5000);
+		wrapper.maxWidthProperty().bind(control.getStage().widthProperty());
 		
-		container.getChildren().remove(wrapper);
 		
 		postPane = new GridPane();
 		postPane.setVgap(2);
 		postPane.setHgap(3);
 		postPane.setAlignment(Pos.BASELINE_LEFT);
 		postPane.setPadding(new Insets(5));
+		postPane.maxWidthProperty().bind(wrapper.widthProperty().subtract(1));
 		
 		
 		Button byPostId = getSortButton("Post ID", Post.BY_POST_ID);
@@ -270,6 +282,8 @@ public class PostsView extends DAHView{
 		GridPane.setFillWidth(byShares, true);
 		GridPane.setFillWidth(byDate, true);
 		GridPane.setFillWidth(byParent, true);
+		
+		
 		
 		
 		postPane.add(byPostId, 0, 0);

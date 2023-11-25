@@ -49,7 +49,7 @@ public class ImportCsvController implements ViewController {
 			int[] result = model.importPostsFrom(file);
 			importCsv = new ImportCsvView(this);
 			importCsv.showImportResult(result[0], result[1]);
-			control.updateStage("ImportCsv");
+			control.updateStage(DAHController.IMPORT);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

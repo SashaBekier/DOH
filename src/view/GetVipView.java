@@ -32,7 +32,7 @@ public class GetVipView extends DAHView{
 			banner = new Image("assets/getVIP.png");
 			toggleVIP = new Button("Yes!");
 		}
-		
+		toggleVIP.setPrefWidth(banner.getWidth());
 		container.getChildren().addAll(new ImageView(banner),toggleVIP);
 		toggleVIP.setOnAction(e -> control.toggleVIP());
 		middlePane.getChildren().add(container);

@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class DAHStyles {
 	public static final Background WINDOW_BG = new Background(new BackgroundFill(Color.FLORALWHITE, null , null));
@@ -21,6 +22,7 @@ public class DAHStyles {
 	public static final double STAGE_WIDTH = 800;
 	public static final double MIN_STAGE_HEIGHT = 400;
 	public static final double MIN_STAGE_WIDTH = 400;
+	public static final Font HEADING = new Font(16);
 	
 	
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.ViewController;
 import controller.ProfileController;
 import controller.LogInController;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import model.User;
 import model.Validators;
 import view.controls.DAHStyles;
@@ -38,7 +41,12 @@ public class ProfileView extends DAHView{
 		User activeUser = control.getActiveUser();
 		
 		GridPane form = new GridPane();
-		form.add(new Label("Username"), 0, 0);
+		form.setVgap(5);
+		form.setHgap(5);
+		
+		Label userL = new Label("Username: "); 
+		form.add(userL, 0, 0);
+		GridPane.setHalignment(userL, HPos.RIGHT);
 		form.add(new Label(activeUser.getUserName()), 1, 0);
 		Button changePassword = new Button("Change Password");
 		form.add(changePassword, 0, 3);
@@ -48,36 +56,47 @@ public class ProfileView extends DAHView{
 		ValidatedButton resetPassword = new ValidatedButton("Reset Password");
 		resetPasswordNodes.add(resetPassword);
 		ValidatedButton updateUser = new ValidatedButton("Update User");
-				
-		Label oldPasswordL = new Label("Old Password");
-		form.add(oldPasswordL, 0, 5);
+		updateUser.setMaxWidth(1000);
+		GridPane.setFillWidth(updateUser, true);		
+		Label oldPasswordL = new Label("Old Password: ");
+		form.add(oldPasswordL, 0, 6);
+		GridPane.setHalignment(oldPasswordL, HPos.RIGHT);
 		resetPasswordNodes.add(oldPasswordL);
 		 
 		ValidatedPasswordField oldPasswordF = new ValidatedPasswordField(s -> Validators.isOldPassword(s),resetPassword);
-		form.add(oldPasswordF, 1, 5);
+		form.add(oldPasswordF, 1, 6);
 		resetPasswordNodes.add(oldPasswordF);
 		
-		Label newPasswordL = new Label("New Password");
-		form.add(newPasswordL, 0, 6);
+		Label newPasswordL = new Label("New Password: ");
+		form.add(newPasswordL, 0, 7);
+		GridPane.setHalignment(newPasswordL, HPos.RIGHT);
 		resetPasswordNodes.add(newPasswordL);
 		
 		ValidatedPasswordField newPassword1F = new ValidatedPasswordField(s -> Validators.hasContent(s),resetPassword);
-		form.add(newPassword1F, 1, 6);
+		form.add(newPassword1F, 1, 7);
 		resetPasswordNodes.add(newPassword1F);
 		
-		Label newPassword2L = new Label("Retype Password");
-		form.add(newPassword2L, 0, 7);
+		Label newPassword2L = new Label("Retype Password: ");
+		form.add(newPassword2L, 0, 8);
+		GridPane.setHalignment(newPassword2L, HPos.RIGHT);
 		resetPasswordNodes.add(newPassword2L);
 		
 		ValidatedPasswordField newPassword2F = new ValidatedPasswordField(newPassword1F, resetPassword);
-		form.add(newPassword2F, 1, 7);
+		form.add(newPassword2F, 1, 8);
 		resetPasswordNodes.add(newPassword2F);
-		form.add(resetPassword, 1, 8);
 		
+		Label passwordUpdated = new Label("Your password has been updated.");
+		passwordUpdated.setVisible(false);
+		
+		form.add(resetPassword, 1, 9);
+		form.add(passwordUpdated, 0, 10);
+		GridPane.setColumnSpan(passwordUpdated, 2);
 		showNodes(resetPasswordNodes, false);
 		
-		changePassword.setOnAction(e -> 
-			showNodes(resetPasswordNodes, true));
+		changePassword.setOnAction(e -> {
+			showNodes(resetPasswordNodes, true);
+			passwordUpdated.setVisible(false);
+			});
 		
 		resetPassword.setOnAction(e -> {
 			control.updatePassword(newPassword1F.getText());
@@ -85,15 +104,19 @@ public class ProfileView extends DAHView{
 			newPassword1F.setValidatedText("");
 			newPassword2F.setValidatedText("");
 			showNodes(resetPasswordNodes, false);
+			passwordUpdated.setVisible(true);
 			});
 		
-		
-		form.add(new Label("First Name :"), 0, 1);
-		TextField firstNameF = new TextField();
-		firstNameF.setText(activeUser.getFirstName());
+		Label fNameL = new Label("First Name :");
+		form.add(fNameL, 0, 1);
+		GridPane.setHalignment(fNameL, HPos.RIGHT);
+		ValidatedTextField firstNameF = new ValidatedTextField(s-> Validators.hasContent(s),updateUser);
+		firstNameF.setValidatedText(activeUser.getFirstName());
 		form.add(firstNameF, 1, 1);
 
-		form.add(new Label("Last Name :"), 0, 2);
+		Label lNameL = new Label("Last Name :");
+		form.add(lNameL, 0, 2);
+		GridPane.setHalignment(lNameL, HPos.RIGHT);
 		ValidatedTextField lastNameF = new ValidatedTextField(s -> Validators.hasContent(s),updateUser);
 		lastNameF.setValidatedText(activeUser.getLastName());
 		form.add(lastNameF, 1, 2);
@@ -119,11 +142,20 @@ public class ProfileView extends DAHView{
 		vipButton.setOnAction(e -> control.goVip());
 		VBox vipContainer = new VBox(5);
 		vipContainer.setAlignment(Pos.CENTER);
-		container.getChildren().add(DAHStyles.verticalSpacer(100));
+		container.getChildren().add(DAHStyles.verticalSpacer(50));
 		container.setAlignment(Pos.CENTER);
-		vipContainer.getChildren().addAll(DAHStyles.verticalSpacer(100),new ImageView(vipImage),vipButton);
+		vipContainer.getChildren().addAll(new ImageView(vipImage),vipButton);
 		container.getChildren().add(form);
-		middlePane.getChildren().addAll(container,DAHStyles.horizontalSpacer(20),vipContainer);
+		
+		VBox layout = new VBox(5);
+		Label greeting = new Label(activeUser.getDisplayName() + "- User Profile");
+		greeting.setFont(DAHStyles.HEADING);
+		layout.setAlignment(Pos.CENTER);
+		HBox mainpanel = new HBox(20);
+		mainpanel.getChildren().addAll(container,vipContainer);
+		layout.getChildren().addAll(DAHStyles.verticalSpacer(20),greeting, mainpanel);
+		
+		middlePane.getChildren().add(layout);
 	}
 
 	private void drawTop() {

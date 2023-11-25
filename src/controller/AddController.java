@@ -45,7 +45,7 @@ public class AddController implements ViewController {
 		
 	}
 	public void showPostsView() {
-		control.updateStage("Posts");
+		control.updateStage(DAHController.POSTS);
 	}
 	
 

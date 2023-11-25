@@ -61,8 +61,8 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 	private void setValid() {
 		this.setBackground(DAHStyles.VALID_BG);
 		this.setBorder(DAHStyles.VALID_BORDER);
+		if(valid == false && registeredButton != null) registeredButton.addValid();
 		valid = true;
-		if(registeredButton != null) registeredButton.addValid();
 	}
 	
 	public ValidatedPasswordField(TextField fieldToMatch, ValidatedButton button) {

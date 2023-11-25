@@ -3,6 +3,7 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +20,7 @@ public class DAHStage {
 	private HBox middlePane = new HBox();
 	private HBox bottomPane = new HBox();
 	private VBox container = new VBox(3);
+	private Scene primaryScene;
 	private Stage primaryStage;
 	
 	public DAHStage(Stage primaryStage) {
@@ -29,8 +31,8 @@ public class DAHStage {
 			container.getChildren().add(bottomPane);
 			setBottomPane(Footer.getFooter());
 			
-			Scene scene = new Scene(container,DAHStyles.STAGE_WIDTH,DAHStyles.STAGE_HEIGHT);
-			primaryStage.setScene(scene);
+			primaryScene = new Scene(container,DAHStyles.STAGE_WIDTH,DAHStyles.STAGE_HEIGHT);
+			primaryStage.setScene(primaryScene);
 			primaryStage.show();
 			container.prefWidthProperty().bind(primaryStage.widthProperty());
 			container.prefHeightProperty().bind(primaryStage.heightProperty());
@@ -70,6 +72,8 @@ public class DAHStage {
 	public Stage getStage() {
 		return primaryStage;
 	}
+
+
 	
 
 }

@@ -50,6 +50,7 @@ public class RegisterView extends DAHView{
 		
 		form.setVgap(5);
 		
+		
 		ValidatedButton submitButton = new ValidatedButton("Register");
 		
 		form.add(new Label("Username: "),1,1);
@@ -90,5 +91,8 @@ public class RegisterView extends DAHView{
 					firstNameText.getText(),
 					lastNameText.getText());
 		});
+		
+		cancel.setCancelButton(true);
+		submitButton.setDefaultButton(true);
 	}
 }

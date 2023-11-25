@@ -23,11 +23,11 @@ public class RegisterController implements ViewController {
 			String lastName) {
 		model.registerUser(username, password, firstName, lastName);
 		control.logInComplete();
-		control.updateStage("Home");
+		control.updateStage(DAHController.HOME);
 		
 	}
 	public void loadLogIn() {
-		control.updateStage("LogIn");
+		control.updateStage(DAHController.LOG_IN);
 	}
 
 }

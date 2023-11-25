@@ -36,7 +36,7 @@ public class GetVipController implements ViewController {
 	public void toggleVIP() {
 		model.toggleVIP();
 		control.refreshVIP();
-		control.updateStage("Profile");
+		control.updateStage(DAHController.PROFILE);
 	}
 
 }

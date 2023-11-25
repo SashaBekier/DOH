@@ -3,6 +3,10 @@ package view;
 import controller.DashboardController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -21,10 +25,10 @@ public class DashboardView extends DAHView {
 		topPane = new HBox(5);
 		topPane.setPadding(new Insets(5));
 		
-		Button profileB = new DashButton("My _Profile","assets/profile.png" );
-		Button postsB = new DashButton("_View Posts","assets/posts.png");
-		Button addB = new DashButton("_Add Post","assets/add.png");
-		Button importB = new DashButton("_Import CSV","assets/import.png");
+		Button profileB = new DashButton("My Profile","assets/profile.png" );
+		Button postsB = new DashButton("View Posts","assets/posts.png");
+		Button addB = new DashButton("Add Post","assets/add.png");
+		Button importB = new DashButton("Import CSV","assets/import.png");
 		Button logOutB = new DashButton("Log Out","assets/logout.png");
 		logOutB.setCancelButton(true);
 		HBox.setMargin(logOutB,new Insets(0,5,0,5));

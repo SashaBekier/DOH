@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.DAHModel;
 import model.Post;
 import model.User;
@@ -54,5 +55,7 @@ public class PostsController implements ViewController {
 	public void deletePost(Post post) {
 		model.deletePost(post);
 	}
-
+	public Stage getStage() {
+		return control.getStage();
+	}
 }

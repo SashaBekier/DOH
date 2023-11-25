@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.DAHModel;
@@ -21,24 +22,24 @@ public class DashboardController implements ViewController {
 		return dashboard.getPanes();
 	}
 	public void loadProfile() {
-		control.updateStage("Profile");
+		control.updateStage(DAHController.PROFILE);
 	}
 	public void loadPosts() {
-		control.updateStage("Posts");
+		control.updateStage(DAHController.POSTS);
 	}
 	public void loadAdd() {
-		control.updateStage("Add");
+		control.updateStage(DAHController.ADD);
 	}
 	public void loadImportCsv() {
 		control.refreshImport();
-		control.updateStage("ImportCsv");
+		control.updateStage(DAHController.IMPORT);
 	}
 	public void logOut() {
 		model.logOut();
-		control.updateStage("LogIn");
+		control.updateStage(DAHController.LOG_IN);
 	}
 	public void loadGetVip() {
-		control.updateStage("GetVip");
+		control.updateStage(DAHController.GET_VIP);
 	}
 	
 	public boolean userHasVip() {
@@ -47,5 +48,6 @@ public class DashboardController implements ViewController {
 		} 
 		return model.getActiveUser().hasVIP();
 	}
+
 
 }
