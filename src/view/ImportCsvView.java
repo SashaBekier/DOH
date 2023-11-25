@@ -32,9 +32,9 @@ public class ImportCsvView extends DAHView{
 		VBox container = new VBox();
 		
 		Button importB = new Button("Browse for Import CSV");
-		importB.setMinSize(300, 200);
+		importB.setMinSize(300, 100);
 		Button defaultB = new Button("Import Default CSV");
-		
+		defaultB.setMinSize(300, 50);
 		container.getChildren().addAll(DAHStyles.verticalSpacer(DAHStyles.MIN_STAGE_HEIGHT/6),importResult, importB, defaultB);
 		container.setSpacing(10);
 		container.setAlignment(Pos.CENTER);

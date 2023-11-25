@@ -21,11 +21,12 @@ public class DashboardView extends DAHView {
 		topPane = new HBox(5);
 		topPane.setPadding(new Insets(5));
 		
-		Button profileB = new DashButton("My Profile","assets/profile.png" );
-		Button postsB = new DashButton("View Posts","assets/posts.png");
-		Button addB = new DashButton("Add Post","assets/add.png");
-		Button importB = new DashButton("Import CSV","assets/import.png");
+		Button profileB = new DashButton("My _Profile","assets/profile.png" );
+		Button postsB = new DashButton("_View Posts","assets/posts.png");
+		Button addB = new DashButton("_Add Post","assets/add.png");
+		Button importB = new DashButton("_Import CSV","assets/import.png");
 		Button logOutB = new DashButton("Log Out","assets/logout.png");
+		logOutB.setCancelButton(true);
 		HBox.setMargin(logOutB,new Insets(0,5,0,5));
 		Button getVipB = new DashButton("Get VIP","assets/getVIPButton.png");
 		Region rightR = new Region();
