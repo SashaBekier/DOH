@@ -12,14 +12,11 @@ public class PostFilter {
 		static LocalDateTime toDate = null;
 		
 		public static void clearFilters() {
-			for(boolean asc: PostFilter.ascending) {
-				asc = !asc;
-			}
-			PostFilter.postIdF = null;
-			PostFilter.authorIdF = null;
-			PostFilter.showRepliesF = true;
-			PostFilter.fromDate = null;
-			PostFilter.toDate = null;
+			postIdF = null;
+			authorIdF = null;
+			showRepliesF = true;
+			fromDate = null;
+			toDate = null;
 		}
 	
 }

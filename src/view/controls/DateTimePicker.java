@@ -1,13 +1,8 @@
 package view.controls;
 
-import java.sql.Time;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-
-import javafx.event.EventDispatcher;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -20,11 +15,12 @@ public class DateTimePicker {
 	private Spinner<Integer> mins = new Spinner<Integer>();
 	private DatePicker date = new DatePicker();
 	
-	
 	public DateTimePicker() {
-		hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23));
+		hours.setValueFactory(
+				new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23));
 		hours.getValueFactory().setWrapAround(true);
-		mins.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59));
+		mins.setValueFactory(
+				new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59));
 		mins.getValueFactory().setWrapAround(true);
 		container.getChildren().addAll(date, hours, new Label(":"), mins);
 		date.setOnMouseMoved(e -> container.fireEvent(e));
@@ -42,15 +38,17 @@ public class DateTimePicker {
 	
 	public DateTimePicker(LocalDateTime dateTime) {
 		this();
-		this.hours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,dateTime.getHour()));
+		this.hours.setValueFactory(
+				new SpinnerValueFactory.IntegerSpinnerValueFactory(
+				0,23,dateTime.getHour()));
 		this.hours.getValueFactory().setWrapAround(true);
-		this.mins.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,dateTime.getMinute()));
+		this.mins.setValueFactory(
+				new SpinnerValueFactory.IntegerSpinnerValueFactory(
+				0,59,dateTime.getMinute()));
 		this.mins.getValueFactory().setWrapAround(true);
 		date.setValue(dateTime.toLocalDate());
 	}
-	
-	
-	
+
 	public HBox getControl() {
 		return container;
 	}

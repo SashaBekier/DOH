@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.layout.HBox;
 import model.DAHModel;
+import model.Post;
 import view.AddView;
 
 public class AddController implements ViewController {
@@ -17,35 +18,34 @@ public class AddController implements ViewController {
 		add = new AddView(this);
 	}
 
-	@Override
-	public HBox[] getPanes() {
-		return add.getPanes();
-	}
-
-	public HBox getDashboard() {
-		return control.getDashboard();
-	}
-
 	public String getActiveUserDisplayName() {
-		return model.getActiveUserDisplayName();
+		return model.getActiveUser().getDisplayName();
 	}
 
 	public ArrayList<String> getAuthorIds() {
 		return model.getActiveUser().getAuthorIDs();
 	}
 
-	public boolean userHasAdmin() {
-		return model.getActiveUser().hasAdmin();
+	public HBox getDashboard() {
+		return control.getDashboard();
 	}
 
-	public void submitPost(String postId, String content, String authorId,
-			String likes, String shares, String dateTime, String parent) {
-		model.submitPost(postId, content, authorId, likes, shares, dateTime,
-				parent);
+	@Override
+	public HBox[] getPanes() {
+		return add.getPanes();
 	}
 
 	public void showPostsView() {
 		control.updateStage(DAHScreen.POSTS);
+	}
+
+	public void submitPost(String postId, String content, String authorId,
+			String likes, String shares, String dateTime, String parent) {
+		model.submitPost(postId, content, authorId, likes, shares, dateTime, parent);
+	}
+
+	public boolean userHasAdmin() {
+		return model.getActiveUser().hasAdmin();
 	}
 
 }

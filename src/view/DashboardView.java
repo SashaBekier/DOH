@@ -3,10 +3,6 @@ package view;
 import controller.DashboardController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -43,7 +39,7 @@ public class DashboardView extends DAHView {
 		addB.setOnAction(e -> control.loadAdd());
 		importB.setOnAction(e -> control.loadImportCsv());
 		getVipB.setOnAction(e -> control.loadGetVip());
-		logOutB.setOnAction(e -> control.logOut());
+		logOutB.setOnAction(e -> control.loadLogOut());
 		
 		if(control.userHasVip()) {
 			topPane.getChildren().remove(getVipB);
@@ -56,6 +52,5 @@ public class DashboardView extends DAHView {
 	private void drawMiddle() {
 		middlePane = new HBox();
 	}
-	
 	
 }

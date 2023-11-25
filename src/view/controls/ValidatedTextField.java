@@ -1,17 +1,11 @@
 package view.controls;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 
 public class ValidatedTextField extends TextField implements ValidatedControl {
 	private boolean valid = false;
 	private ValidatedButton registeredButton;
 	private TextValidator validator;
-	
 	
 	public void registerButton(ValidatedButton button) {
 		registeredButton = button;
@@ -51,13 +45,12 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 		if(validator.validate(this.getText())) {
 			this.setBackground(DAHStyles.VALID_BG);
 			this.setBorder(DAHStyles.VALID_BORDER);
-			
 			if(registeredButton != null && valid == false) registeredButton.addValid();
 			valid = true;
 		} else {
 			this.setBackground(DAHStyles.INVALID_BG);
 			this.setBorder(DAHStyles.INVALID_BORDER);
-			if(valid == true && registeredButton != null) registeredButton.takeValid();
+			if(valid == true && registeredButton != null) registeredButton.removeValid();
 			valid = false;
 		}
 	}

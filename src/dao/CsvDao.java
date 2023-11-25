@@ -7,20 +7,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.DAHModel;
 import model.Post;
-import model.User;
 
 public class CsvDao {
 	private static DAHModel model = DAHModel.getDAHModel();
 	private static final String CSV_HEADER = "ID,content,author,likes,shares,date-time,main_post_id";
-	
 
-	public static int[] importPostsFrom(File myFile) throws FileNotFoundException {
+	public static void exportPosts(List<Post> exportPosts, File saveFile) {
+		if (saveFile != null) {
+			try {
+				PrintWriter pw = new PrintWriter(
+						new BufferedWriter(new FileWriter(saveFile)));
+				pw.println(CSV_HEADER);
+				for (Post post : exportPosts) {
+					pw.println(post.toCSVRepr());
+				}
+				pw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static int[] importPostsFrom(File myFile)
+			throws FileNotFoundException {
 		int[] result = new int[2];
 		Scanner file = new Scanner(myFile);
 		String line = "";
@@ -42,24 +57,6 @@ public class CsvDao {
 		}
 		file.close();
 		return result;
-	}
-
-
-	public static void exportPosts(List<Post> exportPosts, File saveFile) {
-		if(saveFile != null) {
-			try {
-				PrintWriter pw = new PrintWriter(new
-						BufferedWriter(new FileWriter (saveFile)));
-				pw.println(CSV_HEADER);
-				for(Post post: exportPosts) {
-					pw.println(post.toCSVRepr());
-				}
-				pw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 
 }

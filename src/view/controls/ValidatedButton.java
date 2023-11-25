@@ -26,14 +26,13 @@ public class ValidatedButton extends Button {
 		}
 	}
 	
-	public void takeValid() {
+	public void removeValid() {
 		validControls--;
 		this.setDisable(true);
 	}
 	
 	public boolean buttonValid() {
-		if(target == validControls) return true;
-		return false;
+		return target == validControls;
 	}
 
 }

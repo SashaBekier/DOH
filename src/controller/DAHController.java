@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import view.DAHStage;
 
 public class DAHController {
-	// private DAHModel model;
 	private HashMap<DAHScreen, ViewController> controllers = new HashMap<>();
 	private DAHStage window;
 	private DashboardController dash;
@@ -19,14 +18,12 @@ public class DAHController {
 		updateStage(DAHScreen.LOG_IN);
 	}
 
-	public void updateStage(DAHScreen page) {
-		HBox[] panes = controllers.get(page).getPanes();
-		window.setTopPane(panes[0]);
-		window.setMiddlePane(panes[1]);
-	}
-
 	public HBox getDashboard() {
 		return dash.getPanes()[0];
+	}
+
+	public Stage getStage() {
+		return window.getStage();
 	}
 
 	public void logInComplete() {
@@ -41,18 +38,20 @@ public class DAHController {
 		controllers.put(DAHScreen.IMPORT, new ImportCsvController(this));
 	}
 
+	public void refreshImport() {
+		controllers.put(DAHScreen.IMPORT, new ImportCsvController(this));
+	}
+
 	public void refreshVIP() {
 		dash = new DashboardController(this);
 		controllers.put(DAHScreen.PROFILE, new ProfileController(this));
 		controllers.put(DAHScreen.GET_VIP, new GetVipController(this));
 	}
 
-	public void refreshImport() {
-		controllers.put(DAHScreen.IMPORT, new ImportCsvController(this));
-	}
-
-	public Stage getStage() {
-		return window.getStage();
+	public void updateStage(DAHScreen page) {
+		HBox[] panes = controllers.get(page).getPanes();
+		window.setTopPane(panes[0]);
+		window.setMiddlePane(panes[1]);
 	}
 
 }

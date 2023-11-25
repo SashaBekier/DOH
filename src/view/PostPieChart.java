@@ -5,11 +5,9 @@ import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -29,8 +27,6 @@ public class PostPieChart {
 	public PostPieChart(List<Post> posts) {
 		this.posts = posts;
 		
-		
-		
 		VBox container = new VBox(5);
 		container.setAlignment(Pos.CENTER);
 		FlowPane controls = new FlowPane();
@@ -39,39 +35,33 @@ public class PostPieChart {
 		
 		ValidatedButton submit = new ValidatedButton("Update Pie");
 		submit.setDefaultButton(true);
+		
 		Label low = new Label("Low is Below: ");
-		ValidatedTextField lowBelow = new ValidatedTextField(s->Validators.isInt(s),submit);
+		ValidatedTextField lowBelow = new ValidatedTextField(
+				s->Validators.isInt(s),submit);
 		lowBelow.setValidatedText(DEFAULT_LOW_BELOW.toString());
 		lowBelow.setPrefWidth(50);
 		
 		Label high = new Label("High is Above: ");
-		ValidatedTextField highAbove = new ValidatedTextField(s->Validators.isInt(s),submit);
+		ValidatedTextField highAbove = new ValidatedTextField(
+				s->Validators.isInt(s),submit);
 		highAbove.setValidatedText(DEFAULT_HIGH_ABOVE.toString());
 		highAbove.setPrefWidth(50);
 		
 		ToggleButton onShares = new ToggleButton("Show Shares");
 		onShares.setSelected(true);
 		
-		onShares.setOnMouseClicked(e -> {
-			if(onShares.isSelected()) {
-				onShares.setText("Show Shares");
-			} else {
-				onShares.setText("Show Likes");
-			}
-		});
-		
-		Label warning = new Label("High above value should be higher than low below value.");
+		onShares.setOnAction(e -> onShares.setText(
+				onShares.isSelected()?"Show Shares":"Show Likes"));
+			
+		Label warning = new Label(
+				"High above value should be higher than low below value.");
 		warning.setTextFill(Color.RED);
 		warning.setVisible(false);
-		
-		
-		
+
 		controls.getChildren().addAll(low,lowBelow,high,highAbove,onShares,submit);
 		
 		pie = configurePie(DEFAULT_LOW_BELOW,DEFAULT_HIGH_ABOVE,true);
-		
-		
-		
 		
 		container.getChildren().addAll(controls, warning, pie );
 		Scene scene = new Scene(container, 500,500);
@@ -88,28 +78,22 @@ public class PostPieChart {
 				warning.setVisible(true);
 			}
 		});
-		
 		stage.setScene(scene);
 		stage.show();
-		
-		
 	}
 
 	
-	private PieChart configurePie(int lowBelow, int highAbove, boolean onShares) {
+	private PieChart configurePie(int lowBelow, int highAbove, 
+			boolean onShares) {
 		int[] sliceCounts = {0,0,0};
-		String lowString = "0 - " + Integer.toString(lowBelow-1) + (onShares?" Shares":" Likes");
-		String medString = Integer.toString(lowBelow) + " - " + Integer.toString(highAbove)+ (onShares?" Shares":" Likes");
-		String highString = Integer.toString(highAbove + 1) + "+"+ (onShares?" Shares":" Likes");
+		String mode = onShares?" Shares":" Likes";
+		String lowString = "0 - " + Integer.toString(lowBelow-1) + mode;
+		String medString = Integer.toString(lowBelow) + " - " 
+					+ Integer.toString(highAbove)+ mode;
+		String highString = Integer.toString(highAbove + 1) + "+"+ mode;
 		for(Post post: posts) {
-			int value = 0;
-			if(onShares) {
-				value = post.getShares();
-				stage.setTitle("Pie Chart of Posts by Shares");
-			} else {
-				value = post.getLikes();
-				stage.setTitle("Pie Chart of Posts by Likes");
-			}
+			int value = onShares?post.getShares():post.getLikes();
+			stage.setTitle("Pie Chart of Posts by" + mode);
 			if(value < lowBelow) {
 				sliceCounts[0]++;
 			} else if (value <= highAbove) {

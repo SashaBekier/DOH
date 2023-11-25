@@ -18,25 +18,25 @@ public class DashboardController implements ViewController {
 	public HBox[] getPanes() {
 		return dashboard.getPanes();
 	}
-	public void loadProfile() {
-		control.updateStage(DAHScreen.PROFILE);
-	}
-	public void loadPosts() {
-		control.updateStage(DAHScreen.POSTS);
-	}
 	public void loadAdd() {
 		control.updateStage(DAHScreen.ADD);
+	}
+	public void loadGetVip() {
+		control.updateStage(DAHScreen.GET_VIP);
 	}
 	public void loadImportCsv() {
 		control.refreshImport();
 		control.updateStage(DAHScreen.IMPORT);
 	}
-	public void logOut() {
+	public void loadLogOut() {
 		model.logOut();
 		control.updateStage(DAHScreen.LOG_IN);
 	}
-	public void loadGetVip() {
-		control.updateStage(DAHScreen.GET_VIP);
+	public void loadPosts() {
+		control.updateStage(DAHScreen.POSTS);
+	}
+	public void loadProfile() {
+		control.updateStage(DAHScreen.PROFILE);
 	}
 	
 	public boolean userHasVip() {

@@ -2,17 +2,11 @@ package view;
 
 import java.io.File;
 
-import controller.AddController;
-import controller.ViewController;
-import controller.HomeController;
 import controller.ImportCsvController;
-import controller.LogInController;
-import controller.PostsController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import view.controls.DAHStyles;
@@ -26,7 +20,15 @@ public class ImportCsvView extends DAHView{
 		drawTop();
 		drawMiddle();
 	}
-
+	
+	public void showImportResult(int imported, int failed) {
+		importResult.setText(imported + " posts imported. " + failed + " lines with errors");
+	}
+	
+	public void clearInputResult() {
+		importResult = new Label("");
+	}
+	
 	private void drawMiddle() {
 		middlePane = new HBox();
 		VBox container = new VBox();
@@ -48,26 +50,15 @@ public class ImportCsvView extends DAHView{
 		
 		FileChooser fileChooser = new FileChooser();
 		
-		
 		importB.setOnAction(e -> {
 			clearInputResult();
 			File file = fileChooser.showOpenDialog(control.getStage());
 			control.importCsv(file);
 		});
-		
 	}
 
 	private void drawTop() {
 		topPane = control.getDashboard();
-		
-	}
-
-	public void showImportResult(int imported, int failed) {
-		importResult.setText(imported + " posts imported. " + failed + " lines with errors");
-		
-	}
-	public void clearInputResult() {
-		importResult = new Label("");
 	}
 
 	

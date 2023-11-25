@@ -5,11 +5,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -33,7 +30,6 @@ public class RegisterView extends DAHView{
 		VBox banner = Banner.getBanner();
 		banner.prefWidthProperty().bind(topPane.widthProperty());
 		topPane.getChildren().add(banner);
-		
 	}
 
 	private void drawMiddle() {
@@ -41,49 +37,36 @@ public class RegisterView extends DAHView{
 		VBox container = new VBox();
 		Text regText = new Text("Welcome to the Data Analytics Hub.\n\n"
 				+ "To register fill in the form below. \n\n"
-				+ "Throughout DAH validated inputs will display red when invalid and green when valid.\n"
+				+ "Throughout DAH validated inputs will display red when"
+				+ " invalid and green when valid.\n"
 				+ "Any form field that is red is required.");
 		regText.setTextAlignment(TextAlignment.CENTER);
 		regText.maxWidth(300);
 	
-		GridPane form = new GridPane();
-		
-		form.setVgap(5);
-		
+		GridPane form = new GridPane(5,5);
+		form.setAlignment(Pos.CENTER);
 		
 		ValidatedButton submitButton = new ValidatedButton("Register");
 		
 		form.add(new Label("Username: "),1,1);
-		ValidatedTextField usernameText = new ValidatedTextField(s -> Validators.isUsernameAvailable(s),submitButton);
+		ValidatedTextField usernameText = new ValidatedTextField(
+				s -> Validators.isUsernameAvailable(s),submitButton);
 		form.add(usernameText, 2, 1);
 		
 		form.add(new Label("Password: "),1,2);
-		ValidatedPasswordField passwordText = new ValidatedPasswordField(s -> Validators.hasContent(s),submitButton);
+		ValidatedPasswordField passwordText = new ValidatedPasswordField(
+				s -> Validators.hasContent(s),submitButton);
 		form.add(passwordText, 2, 2);
 		
 		form.add(new Label("First Name: "),1,3);
-		ValidatedTextField firstNameText = new ValidatedTextField(s -> Validators.hasContent(s),submitButton);
+		ValidatedTextField firstNameText = new ValidatedTextField(
+				s -> Validators.hasContent(s),submitButton);
 		form.add(firstNameText, 2, 3);
 		
 		form.add(new Label("Last Name: "),1,4);
-		ValidatedTextField lastNameText = new ValidatedTextField(s -> Validators.hasContent(s),submitButton);
+		ValidatedTextField lastNameText = new ValidatedTextField(
+				s -> Validators.hasContent(s),submitButton);
 		form.add(lastNameText, 2, 4);
-		
-		Button cancel = new Button("Back");
-		form.add(cancel, 1, 5);
-		cancel.setOnAction(e -> control.loadLogIn());
-		
-		form.add(submitButton, 2, 5);
-		GridPane.setHalignment(submitButton, HPos.RIGHT);
-		
-		
-		container.getChildren().add(DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 16));
-		container.getChildren().add(regText);
-		container.getChildren().add(DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 16));
-		container.getChildren().add(form);
-
-		form.setAlignment(Pos.CENTER);
-		middlePane.getChildren().add(container);
 		
 		submitButton.setOnAction(e -> {
 			control.registerUser(usernameText.getText(),
@@ -91,8 +74,20 @@ public class RegisterView extends DAHView{
 					firstNameText.getText(),
 					lastNameText.getText());
 		});
-		
-		cancel.setCancelButton(true);
 		submitButton.setDefaultButton(true);
+		
+		Button cancel = new Button("Back");
+		form.add(cancel, 1, 5);
+		cancel.setOnAction(e -> control.loadLogIn());
+		cancel.setCancelButton(true);
+		
+		form.add(submitButton, 2, 5);
+		GridPane.setHalignment(submitButton, HPos.RIGHT);
+		
+		container.getChildren().addAll(
+				DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 16),
+				regText, DAHStyles.verticalSpacer(DAHStyles.STAGE_HEIGHT / 16),
+				form);
+		middlePane.getChildren().add(container);
 	}
 }
