@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.ViewController;
 import controller.ProfileController;
 import controller.LogInController;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.User;
 import model.Validators;
+import view.controls.DAHStyles;
 import view.controls.ValidatedButton;
 import view.controls.ValidatedPasswordField;
 import view.controls.ValidatedTextField;
@@ -31,8 +33,8 @@ public class ProfileView extends DAHView{
 	}
 
 	private void drawMiddle() {
-		middlePane = new HBox();
-		VBox container = new VBox();
+		middlePane = new HBox(5);
+		VBox container = new VBox(5);
 		User activeUser = control.getActiveUser();
 		
 		GridPane form = new GridPane();
@@ -115,9 +117,13 @@ public class ProfileView extends DAHView{
 			vipButton = new Button("Subscribe");
 		}
 		vipButton.setOnAction(e -> control.goVip());
-		
-		container.getChildren().addAll(form,new ImageView(vipImage),vipButton);
-		middlePane.getChildren().add(container);
+		VBox vipContainer = new VBox(5);
+		vipContainer.setAlignment(Pos.CENTER);
+		container.getChildren().add(DAHStyles.verticalSpacer(100));
+		container.setAlignment(Pos.CENTER);
+		vipContainer.getChildren().addAll(DAHStyles.verticalSpacer(100),new ImageView(vipImage),vipButton);
+		container.getChildren().add(form);
+		middlePane.getChildren().addAll(container,DAHStyles.horizontalSpacer(20),vipContainer);
 	}
 
 	private void drawTop() {

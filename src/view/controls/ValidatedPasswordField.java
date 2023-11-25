@@ -52,15 +52,15 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 	}
 	
 	private void setInvalid() {
-		setBackground(new Background(new BackgroundFill(
-				Color.LIGHTPINK,new CornerRadii(5),null)));
+		this.setBackground(DAHStyles.INVALID_BG);
+		this.setBorder(DAHStyles.INVALID_BORDER);
 		if(valid == true && registeredButton != null) registeredButton.takeValid();
 		valid = false;
 	}
 	
 	private void setValid() {
-		setBackground(new Background(new BackgroundFill(
-				Color.LIGHTGREEN,new CornerRadii(5),null)));
+		this.setBackground(DAHStyles.VALID_BG);
+		this.setBorder(DAHStyles.VALID_BORDER);
 		valid = true;
 		if(registeredButton != null) registeredButton.addValid();
 	}
@@ -78,15 +78,7 @@ public class ValidatedPasswordField extends PasswordField implements ValidatedCo
 			setInvalid();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public boolean isValid() {
 		return valid;

@@ -10,11 +10,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class DAHStyles {
-	public static final Background BLUE_BG = new Background(new BackgroundFill(Color.ALICEBLUE, new CornerRadii(5.0) , null));
 	public static final Background WINDOW_BG = new Background(new BackgroundFill(Color.FLORALWHITE, null , null));
-	public static final Border BLUE_BORDER = new Border(new BorderStroke(Color.DARKBLUE,BorderStrokeStyle.SOLID, new CornerRadii(5.0),null));
-	public static final Background RED_BG = new Background(new BackgroundFill(Color.LIGHTPINK, new CornerRadii(5.0) , null));
-	public static final Border RED_BORDER = new Border(new BorderStroke(Color.DARKRED,BorderStrokeStyle.SOLID, new CornerRadii(5.0),null));
+	public static final Background BUTTON_BG = new Background(new BackgroundFill(Color.ALICEBLUE, new CornerRadii(5.0) , null));
+	public static final Border BUTTON_BORDER = new Border(new BorderStroke(Color.DARKBLUE,BorderStrokeStyle.SOLID, new CornerRadii(5.0),null));
+	public static final Background INVALID_BG = new Background(new BackgroundFill(Color.LIGHTPINK, new CornerRadii(5.0) , null));
+	public static final Border INVALID_BORDER = new Border(new BorderStroke(Color.DARKRED,BorderStrokeStyle.SOLID, new CornerRadii(5.0),null));
+	public static final Background VALID_BG = new Background(new BackgroundFill(Color.LIGHTGREEN, new CornerRadii(5.0) , null));
+	public static final Border VALID_BORDER = new Border(new BorderStroke(Color.DARKGREEN,BorderStrokeStyle.SOLID, new CornerRadii(5.0),null));
 	public static final double STAGE_HEIGHT = 600;
 	public static final double STAGE_WIDTH = 800;
 	public static final double MIN_STAGE_HEIGHT = 400;

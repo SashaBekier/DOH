@@ -125,8 +125,8 @@ public class PostsView extends DAHView{
 				new Label(" Author ID: "), authorIdFilter,
 				repliesContainer,
 				dateContainer);
-		filters.setBackground(DAHStyles.BLUE_BG);
-		filters.setBorder(DAHStyles.BLUE_BORDER);
+		filters.setBackground(DAHStyles.BUTTON_BG);
+		filters.setBorder(DAHStyles.BUTTON_BORDER);
 		controlsContainer.getChildren().addAll(filters,submit);
 		controlsContainer.setPadding(new Insets(5));
 		
@@ -198,8 +198,8 @@ public class PostsView extends DAHView{
 			postPane.add(new Label(String.valueOf(post.getPostedAt())), 6, row);
 			if(control.getActiveUser().hasAdmin() || post.getAuthorId().equals(control.getActiveUser().getUserName())) {
 				deleteButtons[row] = new Button("Delete Post");
-				deleteButtons[row].setBackground(DAHStyles.RED_BG);
-				deleteButtons[row].setBorder(DAHStyles.RED_BORDER);
+				deleteButtons[row].setBackground(DAHStyles.INVALID_BG);
+				deleteButtons[row].setBorder(DAHStyles.INVALID_BORDER);
 				deleteButtons[row].setOnAction(e -> {
 					control.deletePost(post);
 					posts.remove(post);

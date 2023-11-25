@@ -49,13 +49,14 @@ public class ValidatedTextField extends TextField implements ValidatedControl {
 	
 	private void validate() {
 		if(validator.validate(this.getText())) {
-			this.setBackground(new Background(new BackgroundFill(
-					Color.LIGHTGREEN,new CornerRadii(5),null)));
+			this.setBackground(DAHStyles.VALID_BG);
+			this.setBorder(DAHStyles.VALID_BORDER);
+			
 			if(registeredButton != null && valid == false) registeredButton.addValid();
 			valid = true;
 		} else {
-			this.setBackground(new Background(new BackgroundFill(
-					Color.LIGHTPINK,new CornerRadii(5),null)));
+			this.setBackground(DAHStyles.INVALID_BG);
+			this.setBorder(DAHStyles.INVALID_BORDER);
 			if(valid == true && registeredButton != null) registeredButton.takeValid();
 			valid = false;
 		}

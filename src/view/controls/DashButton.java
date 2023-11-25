@@ -16,8 +16,8 @@ public class DashButton extends Button {
 		this.setGraphic(new ImageView(pic));
 		this.setContentDisplay(ContentDisplay.TOP);
 		this.setPrefSize(100, 100);
-		this.setBackground(DAHStyles.BLUE_BG);
-		this.setBorder(DAHStyles.BLUE_BORDER);	
+		this.setBackground(DAHStyles.BUTTON_BG);
+		this.setBorder(DAHStyles.BUTTON_BORDER);	
 		
 		this.setPadding(new Insets(2));
 	}
