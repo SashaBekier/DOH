@@ -3,19 +3,15 @@ package controller;
 import java.util.ArrayList;
 
 import javafx.scene.layout.HBox;
-import model.DAHModel;
-import model.Post;
 import view.AddView;
 
-public class AddController implements ViewController {
+public class AddController extends ViewController {
 	private AddView add;
-	private DAHController control;
-	private DAHModel model;
 
 	public AddController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		add = new AddView(this);
+		super.setView(add);
 	}
 
 	public String getActiveUserDisplayName() {
@@ -28,11 +24,6 @@ public class AddController implements ViewController {
 
 	public HBox getDashboard() {
 		return control.getDashboard();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return add.getPanes();
 	}
 
 	public void showPostsView() {

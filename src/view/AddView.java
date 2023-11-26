@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.AddController;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -30,7 +31,7 @@ public class AddView extends DAHView{
 		middlePane = new HBox();
 		
 		VBox container = new VBox();
-
+		container.setAlignment(Pos.CENTER);
 		Label heading = new Label("New Post");
 		heading.setFont(new Font(16));
 		VBox.setMargin(heading, new Insets(20));

@@ -37,7 +37,12 @@ public class ImportCsvView extends DAHView{
 		importB.setMinSize(300, 100);
 		Button defaultB = new Button("Import Default CSV");
 		defaultB.setMinSize(300, 50);
-		container.getChildren().addAll(DAHStyles.verticalSpacer(DAHStyles.MIN_STAGE_HEIGHT/6),importResult, importB, defaultB);
+		Label title = new Label("Import Posts from CSV");
+		title.setFont(DAHStyles.HEADING);
+		title.setTranslateY(50);
+		container.getChildren().addAll(title,
+				DAHStyles.verticalSpacer(DAHStyles.MIN_STAGE_HEIGHT/6),
+				importResult, importB, defaultB);
 		container.setSpacing(10);
 		container.setAlignment(Pos.CENTER);
 		middlePane.getChildren().add(container);

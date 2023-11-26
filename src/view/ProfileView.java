@@ -80,7 +80,8 @@ public class ProfileView extends DAHView{
 		GridPane.setHalignment(oldPasswordL, HPos.RIGHT);
 		resetPasswordNodes.add(oldPasswordL);
 		 
-		ValidatedPasswordField oldPasswordF = new ValidatedPasswordField(s -> Validators.isOldPassword(s),resetPassword);
+		ValidatedPasswordField oldPasswordF = new ValidatedPasswordField(
+				s -> Validators.isOldPassword(s),resetPassword);
 		form.add(oldPasswordF, 1, 6);
 		resetPasswordNodes.add(oldPasswordF);
 		
@@ -89,7 +90,8 @@ public class ProfileView extends DAHView{
 		GridPane.setHalignment(newPasswordL, HPos.RIGHT);
 		resetPasswordNodes.add(newPasswordL);
 		
-		ValidatedPasswordField newPassword1F = new ValidatedPasswordField(s -> Validators.hasContent(s),resetPassword);
+		ValidatedPasswordField newPassword1F = new ValidatedPasswordField(
+				s -> Validators.hasContent(s),resetPassword);
 		form.add(newPassword1F, 1, 7);
 		resetPasswordNodes.add(newPassword1F);
 		
@@ -98,7 +100,8 @@ public class ProfileView extends DAHView{
 		GridPane.setHalignment(newPassword2L, HPos.RIGHT);
 		resetPasswordNodes.add(newPassword2L);
 		
-		ValidatedPasswordField newPassword2F = new ValidatedPasswordField(newPassword1F, resetPassword);
+		ValidatedPasswordField newPassword2F = new ValidatedPasswordField(
+				newPassword1F, resetPassword);
 		form.add(newPassword2F, 1, 8);
 		resetPasswordNodes.add(newPassword2F);
 		
@@ -131,15 +134,15 @@ public class ProfileView extends DAHView{
 		vipButton.setOnAction(e -> control.callVip());
 		
 		VBox vipContainer = new VBox(5);
-		vipContainer.setAlignment(Pos.CENTER);
+		vipContainer.setAlignment(Pos.TOP_CENTER);
 		container.setAlignment(Pos.CENTER);
 		vipContainer.getChildren().addAll(DAHStyles.verticalSpacer(50),
 				new ImageView(vipImage),vipButton);
-		container.getChildren().add(form);
+		container.getChildren().addAll(DAHStyles.verticalSpacer(50),form);
 		
 		VBox layout = new VBox(5);
 		Label greeting = new Label(activeUser.getDisplayName() 
-				+ "- User Profile");
+				+ " - User Profile");
 		greeting.setFont(DAHStyles.HEADING);
 		layout.setAlignment(Pos.CENTER);
 		HBox mainpanel = new HBox(20);

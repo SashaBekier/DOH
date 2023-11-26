@@ -1,18 +1,15 @@
 package controller;
 
 import javafx.scene.layout.HBox;
-import model.DAHModel;
 import view.HomeView;
 
-public class HomeController implements ViewController {
+public class HomeController extends ViewController {
 	private HomeView home;
-	private DAHController control;
-	private DAHModel model;
-
+	
 	public HomeController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		home = new HomeView(this);
+		super.setView(home);
 	}
 
 	public String getActiveUserDisplayName() {
@@ -21,11 +18,6 @@ public class HomeController implements ViewController {
 
 	public HBox getDashboard() {
 		return control.getDashboard();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return home.getPanes();
 	}
 
 }
