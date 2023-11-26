@@ -13,7 +13,7 @@ import view.controls.DAHStyles;
 
 public class ImportCsvView extends DAHView{
 	private ImportCsvController control;
-	private Label importResult = new Label("I am the import result field");
+	private Label importResult = new Label("");
 
 	public ImportCsvView(ImportCsvController importCsvController) {
 		control = importCsvController;
