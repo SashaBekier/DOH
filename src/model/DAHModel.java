@@ -8,7 +8,6 @@ import java.util.Comparator;
 
 import dao.CsvDao;
 import dao.DAHDao;
-import dao.DAOUnavailableException;
 import dao.InvalidLoginException;
 import dao.SQLite;
 
@@ -19,12 +18,8 @@ public class DAHModel {
 	private DAHDao data;
 
 	private DAHModel() {
-		try {
 			data = new DAHDao(new SQLite());
 			posts = data.getPosts();
-		} catch (DAOUnavailableException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static DAHModel getDAHModel() {

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import view.ExceptionPopUp;
 import view.ImportCsvView;
 
 public class ImportCsvController extends ViewController {
@@ -31,8 +32,7 @@ public class ImportCsvController extends ViewController {
 			importCsv.showImportResult(result[0], result[1]);
 			control.updateStage(DAHScreen.IMPORT);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ExceptionPopUp(e);
 		}
 	}
 }

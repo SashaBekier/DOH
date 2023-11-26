@@ -11,11 +11,12 @@ import java.util.ArrayList;
 
 import model.Post;
 import model.User;
+import view.ExceptionPopUp;
 
 public class DAHDao {
 	private DBMS dbms;
 
-	public DAHDao(DBMS db) throws DAOUnavailableException {
+	public DAHDao(DBMS db) {
 		dbms = db;
 		confirmDBStructure();
 	}
@@ -37,8 +38,7 @@ public class DAHDao {
 			}
 			db.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Post not added to Database. Check your DBMS implementation."));
 		}
 	}
 
@@ -56,7 +56,7 @@ public class DAHDao {
 			addUserQuery.executeUpdate();
 			db.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("User not added to Database. Check your DBMS implementation."));
 		}
 	}
 
@@ -73,8 +73,7 @@ public class DAHDao {
 
 			db.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Database failed to intialiase. Check your DBMS implementation."));
 		}
 	}
 
@@ -93,7 +92,8 @@ public class DAHDao {
 			deletePostById.executeUpdate();
 			db.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Post could not be deleted from Database."
+					+ " Check your DBMS implementation."));
 		}
 	}
 
@@ -103,7 +103,7 @@ public class DAHDao {
 			connection = DriverManager
 					.getConnection(dbms.getJDBCConnectionString());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Unable to connect to Database. Check your DBMS implementation."));
 		}
 		return connection;
 	}
@@ -126,7 +126,7 @@ public class DAHDao {
 			}
 			db.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Unable to retrieve posts. Check your DBMS implementation."));
 		}
 		return answer;
 	}
@@ -142,7 +142,7 @@ public class DAHDao {
 			while (test.next())
 				answer = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Unable to access database. Check your DBMS implementation."));
 		}
 		return answer;
 	}
@@ -173,7 +173,8 @@ public class DAHDao {
 			updateUserQuery.executeUpdate();
 			db.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("User update to database failed."
+					+ " Check your DBMS implementation."));
 		}
 	}
 
@@ -188,7 +189,7 @@ public class DAHDao {
 			while (test.next())
 				answer = true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Unable to validate username. Check your DBMS implementation."));
 		}
 		return answer;
 	}
@@ -215,8 +216,8 @@ public class DAHDao {
 			}
 			db.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new ExceptionPopUp(new Exception("Unable to process Log in."
+					+ " Check your DBMS implementation."));
 		}
 
 		return validatedUser;
