@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import model.DAHModel;
 import model.Post;
+import view.ExceptionPopUp;
 
 public class CsvDao {
 	private static DAHModel model = DAHModel.getDAHModel();
@@ -28,8 +29,7 @@ public class CsvDao {
 				}
 				pw.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new ExceptionPopUp(e);
 			}
 		}
 	}
