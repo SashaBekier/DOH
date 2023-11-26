@@ -1,28 +1,19 @@
 package controller;
 
 import dao.InvalidLoginException;
-import javafx.scene.layout.HBox;
-import model.DAHModel;
 import view.LogInView;
 
-public class LogInController implements ViewController {
+public class LogInController extends ViewController {
 	private LogInView logIn;
-	private DAHController control;
-	private DAHModel model;
 
 	public LogInController(DAHController cont) {
-		control = cont;
+		super(cont);
 		logIn = new LogInView(this);
-		model = DAHModel.getDAHModel();
+		super.setView(logIn);
 	}
 
 	public void callRegisterView() {
 		control.updateStage(DAHScreen.REGISTER);
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return logIn.getPanes();
 	}
 
 	public void submitLogin(String username, String password)

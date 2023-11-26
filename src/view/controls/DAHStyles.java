@@ -28,8 +28,8 @@ public class DAHStyles {
 	public static final Border VALID_BORDER = new Border(
 			new BorderStroke(Color.DARKGREEN,BorderStrokeStyle.SOLID, 
 			new CornerRadii(5.0),null));
-	public static final double STAGE_HEIGHT = 600;
-	public static final double STAGE_WIDTH = 800;
+	public static final double STAGE_HEIGHT = 768;
+	public static final double STAGE_WIDTH = 1024;
 	public static final double MIN_STAGE_HEIGHT = 400;
 	public static final double MIN_STAGE_WIDTH = 400;
 	public static final Font HEADING = new Font(16);

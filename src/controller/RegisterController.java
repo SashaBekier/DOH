@@ -1,23 +1,15 @@
 package controller;
 
-import javafx.scene.layout.HBox;
-import model.DAHModel;
 import view.RegisterView;
 
-public class RegisterController implements ViewController {
+public class RegisterController extends ViewController {
 	private RegisterView register;
-	private DAHController control;
-	private DAHModel model;
+
 
 	public RegisterController(DAHController cont) {
-		control = cont;
+		super(cont);
 		register = new RegisterView(this);
-		model = DAHModel.getDAHModel();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return register.getPanes();
+		super.setView(register);
 	}
 
 	public void loadLogIn() {

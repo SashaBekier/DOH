@@ -7,20 +7,17 @@ import dao.CsvDao;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.DAHModel;
 import model.Post;
 import model.User;
 import view.PostsView;
 
-public class PostsController implements ViewController {
-	private DAHController control;
-	private DAHModel model;
+public class PostsController extends ViewController {
 	private PostsView posts;
 
 	public PostsController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		posts = new PostsView(this);
+		super.setView(posts);
 	}
 
 	public void callExportCsvView(List<Post> exportPosts) {

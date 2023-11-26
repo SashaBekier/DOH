@@ -1,22 +1,14 @@
 package controller;
 
-import javafx.scene.layout.HBox;
-import model.DAHModel;
 import view.DashboardView;
 
-public class DashboardController implements ViewController {
+public class DashboardController extends ViewController {
 	private DashboardView dashboard;
-	private DAHController control;
-	private DAHModel model;
 	
 	public DashboardController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		dashboard = new DashboardView(this);
-	}
-	@Override
-	public HBox[] getPanes() {
-		return dashboard.getPanes();
+		super.setView(dashboard);
 	}
 	public void loadAdd() {
 		control.updateStage(DAHScreen.ADD);

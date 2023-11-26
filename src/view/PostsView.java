@@ -55,6 +55,8 @@ public class PostsView extends DAHView{
 	private void drawMiddle() {
 		middlePane = new HBox();
 		container = new VBox();
+		container.maxWidthProperty().bind(control.getStage().widthProperty());
+		container.setPadding(new Insets(5));
 		
 		HBox controlsContainer = new HBox(5);
 		
@@ -77,11 +79,13 @@ public class PostsView extends DAHView{
 		HBox toDate = toDateTimePicker.getControl();
 		
 		HBox dateContainer = new HBox(5);
-		dateContainer.getChildren().addAll(new Label("Posted Between: "),fromDate, new Label(" and: "), toDate);
+		dateContainer.getChildren().addAll(
+				new Label("Posted Between: "),fromDate, new Label(" and: "), toDate);
 		dateContainer.setAlignment(Pos.CENTER_LEFT);
 
 		HBox repliesContainer = new HBox(5);
-		repliesContainer.getChildren().addAll(showReplies, new Label("Include Replies"));
+		repliesContainer.getChildren().addAll(
+				showReplies, new Label("Include Replies"));
 		repliesContainer.setAlignment(Pos.CENTER_LEFT);
 		
 		filters.getChildren().addAll(
@@ -216,13 +220,14 @@ public class PostsView extends DAHView{
 		wrapper.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		wrapper.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		wrapper.setPrefHeight(5000);
-		wrapper.maxWidthProperty().bind(control.getStage().widthProperty());
+		wrapper.maxWidthProperty().bind(container.maxWidthProperty());
+		wrapper.setPadding(new Insets(5));
 
 		postPane = new GridPane(5,5);
 		postPane.setVgap(2);
 		postPane.setHgap(3);
 		postPane.setAlignment(Pos.BASELINE_LEFT);
-		postPane.maxWidthProperty().bind(wrapper.widthProperty().subtract(1));
+		postPane.maxWidthProperty().bind(container.maxWidthProperty().subtract(1));
 				
 		Button byPostId = getSortButton("Post ID", Post.BY_POST_ID);
 		Button byAuthor = getSortButton("Author", Post.BY_AUTHOR);

@@ -1,19 +1,16 @@
 package controller;
 
 import javafx.scene.layout.HBox;
-import model.DAHModel;
 import model.User;
 import view.ProfileView;
 
-public class ProfileController implements ViewController {
+public class ProfileController extends ViewController {
 	private ProfileView profile;
-	private DAHController control;
-	private DAHModel model;
-
+	
 	public ProfileController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		profile = new ProfileView(this);
+		super.setView(profile);
 	}
 
 	public User getActiveUser() {
@@ -22,11 +19,6 @@ public class ProfileController implements ViewController {
 
 	public HBox getDashboard() {
 		return control.getDashboard();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return profile.getPanes();
 	}
 
 	public void callVip() {

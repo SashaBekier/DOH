@@ -5,27 +5,19 @@ import java.io.FileNotFoundException;
 
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.DAHModel;
 import view.ImportCsvView;
 
-public class ImportCsvController implements ViewController {
+public class ImportCsvController extends ViewController {
 	private ImportCsvView importCsv;
-	private DAHController control;
-	private DAHModel model;
-
+	
 	public ImportCsvController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		importCsv = new ImportCsvView(this);
+		super.setView(importCsv);
 	}
 
 	public HBox getDashboard() {
 		return control.getDashboard();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return importCsv.getPanes();
 	}
 
 	public Stage getStage() {

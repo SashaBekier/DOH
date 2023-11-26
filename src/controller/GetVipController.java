@@ -1,27 +1,19 @@
 package controller;
 
 import javafx.scene.layout.HBox;
-import model.DAHModel;
 import view.GetVipView;
 
-public class GetVipController implements ViewController {
+public class GetVipController extends ViewController {
 	private GetVipView getVip;
-	private DAHController control;
-	private DAHModel model;
-
+	
 	public GetVipController(DAHController cont) {
-		control = cont;
-		model = DAHModel.getDAHModel();
+		super(cont);
 		getVip = new GetVipView(this);
+		super.setView(getVip);
 	}
 
 	public HBox getDashboard() {
 		return control.getDashboard();
-	}
-
-	@Override
-	public HBox[] getPanes() {
-		return getVip.getPanes();
 	}
 
 	public void toggleVIP() {
