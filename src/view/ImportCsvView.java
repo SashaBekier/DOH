@@ -13,7 +13,7 @@ import view.controls.DAHStyles;
 
 public class ImportCsvView extends DAHView{
 	private ImportCsvController control;
-	private Label importResult = new Label("");
+	private Label importResult = new Label("I am the import result field");
 
 	public ImportCsvView(ImportCsvController importCsvController) {
 		control = importCsvController;
@@ -23,6 +23,7 @@ public class ImportCsvView extends DAHView{
 	
 	public void showImportResult(int imported, int failed) {
 		importResult.setText(imported + " posts imported. " + failed + " lines with errors");
+		drawMiddle();
 	}
 	
 	public void clearInputResult() {
@@ -58,7 +59,7 @@ public class ImportCsvView extends DAHView{
 		importB.setOnAction(e -> {
 			clearInputResult();
 			File file = fileChooser.showOpenDialog(control.getStage());
-			control.importCsv(file);
+			if(file!=null) control.importCsv(file);
 		});
 	}
 

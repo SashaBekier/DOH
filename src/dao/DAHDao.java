@@ -73,13 +73,24 @@ public class DAHDao {
 
 			db.close();
 		} catch (SQLException e) {
-			new ExceptionPopUp(new Exception("Database failed to intialiase. Check your DBMS implementation."));
+			new ExceptionPopUp(new Exception("Database failed to initialise."
+					+ " Check your DBMS implementation."));
 		}
 	}
 
 	private void confirmSuperAdmin() {
-		if (!usernameExists("Superadmin")) {
-			dbms.insertSuperAdmin();
+		if (!usernameExists("superadmin")) {
+			Connection db = getConnection();
+			Statement statement;
+			try {
+				statement = db.createStatement();
+				statement.execute(dbms.insertSuperAdmin());
+			} catch (SQLException e) {
+				new ExceptionPopUp(new Exception("Database failed to intialiase."
+						+ " Check your DBMS implementation."));
+			}
+			
+			
 		}
 	}
 

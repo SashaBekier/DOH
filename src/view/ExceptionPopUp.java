@@ -24,5 +24,7 @@ public class ExceptionPopUp {
 		stage.setScene(scene);
 		stage.setTitle("System Error");
 		stage.show();
+		stage.requestFocus();
+		stage.toFront();
 	}
 }

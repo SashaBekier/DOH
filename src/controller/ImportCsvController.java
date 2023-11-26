@@ -28,7 +28,6 @@ public class ImportCsvController extends ViewController {
 	public void importCsv(File file) {
 		try {
 			int[] result = model.importPostsFrom(file);
-			importCsv = new ImportCsvView(this);
 			importCsv.showImportResult(result[0], result[1]);
 			control.updateStage(DAHScreen.IMPORT);
 		} catch (FileNotFoundException e) {
